@@ -84,22 +84,6 @@ const UseCases = () => {
             </div>
           ))}
         </div>
-
-        <div className="mt-16 text-center">
-          <div className="bg-gradient-to-r from-slate-900 to-slate-800 rounded-2xl p-8 md:p-12 text-white">
-            <h3 className="text-2xl md:text-3xl font-bold mb-6">
-              Trusted by Leading Automotive Companies
-            </h3>
-            <p className="text-lg text-slate-300 mb-8 max-w-3xl mx-auto">
-              "TrinovaQ helped us identify 15 critical vulnerabilities in our ADAS stack 
-              that traditional tools missed. The automotive-specific analysis was exactly what we needed."
-            </p>
-            <div className="text-slate-400">
-              <div className="font-medium">— Head of Security Engineering</div>
-              <div className="text-sm">Tier 1 Automotive Supplier (Name withheld under NDA)</div>
-            </div>
-          </div>
-        </div>
       </div>
     </section>
   );

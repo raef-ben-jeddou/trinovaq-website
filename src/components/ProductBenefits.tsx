@@ -48,50 +48,6 @@ const ProductBenefits = () => {
             </div>
           ))}
         </div>
-
-        <div className="bg-gradient-to-r from-blue-600 to-cyan-600 rounded-2xl p-8 md:p-12 text-white">
-          <div className="max-w-4xl mx-auto">
-            <h3 className="text-2xl md:text-3xl font-bold mb-6">
-              Built for Automotive Engineering Excellence
-            </h3>
-            <div className="grid md:grid-cols-2 gap-8">
-              <div>
-                <h4 className="text-xl font-semibold mb-4">Industry-Specific Analysis</h4>
-                <ul className="space-y-2 text-blue-100">
-                  <li className="flex items-center">
-                    <ArrowRight className="w-4 h-4 mr-2" />
-                    ISO 26262 compliance checking
-                  </li>
-                  <li className="flex items-center">
-                    <ArrowRight className="w-4 h-4 mr-2" />
-                    CAN/LIN protocol security
-                  </li>
-                  <li className="flex items-center">
-                    <ArrowRight className="w-4 h-4 mr-2" />
-                    Over-the-air update validation
-                  </li>
-                </ul>
-              </div>
-              <div>
-                <h4 className="text-xl font-semibold mb-4">Enterprise-Ready</h4>
-                <ul className="space-y-2 text-blue-100">
-                  <li className="flex items-center">
-                    <ArrowRight className="w-4 h-4 mr-2" />
-                    On-premise deployment options
-                  </li>
-                  <li className="flex items-center">
-                    <ArrowRight className="w-4 h-4 mr-2" />
-                    SAML/SSO integration
-                  </li>
-                  <li className="flex items-center">
-                    <ArrowRight className="w-4 h-4 mr-2" />
-                    Detailed audit trails
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div>
       </div>
     </section>
   );
