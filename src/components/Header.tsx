@@ -22,12 +22,12 @@ const Header = () => {
       <div className="container mx-auto px-4 flex items-center justify-between">
         {/* Logo */}
         <Link to="/" className="flex items-center gap-2">
-          <div className="w-8 h-8 rounded bg-gradient-to-br from-brand-cyan to-brand-purple flex items-center justify-center font-bold text-brand-dark">
-            Q
-          </div>
-          <span className="text-xl font-heading font-bold tracking-tight text-white">
-            Trinova<span className="text-brand-cyan">Q</span>
-          </span>
+          {/* Replace the previous <div> and <span> code with this image tag */}
+          <img 
+            src="/public/trinovaq_logo.jpg" 
+            alt="TrinovaQ Logo" 
+            className="h-10 w-auto object-contain" 
+          />
         </Link>
 
         {/* Desktop Nav */}
