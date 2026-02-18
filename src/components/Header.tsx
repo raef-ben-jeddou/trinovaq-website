@@ -22,11 +22,11 @@ const Header = () => {
       <div className="container mx-auto px-4 flex items-center justify-between">
         {/* Logo */}
         <Link to="/" className="flex items-center gap-2">
-          {/* Replace the previous <div> and <span> code with this image tag */}
+          {/* FIXED: Path is now /trinovaq_logo.jpg (Vite serves public folder at root) */}
           <img 
-            src="/public/trinovaq_logo.jpg" 
+            src="/trinovaq_logo.jpg" 
             alt="TrinovaQ Logo" 
-            className="h-10 w-auto object-contain" 
+            className="h-10 w-auto object-contain rounded-md" 
           />
         </Link>
 
