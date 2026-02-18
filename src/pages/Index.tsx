@@ -39,86 +39,6 @@ const Index = () => {
               <Link to="/technology">View Architecture</Link>
             </Button>
           </div>
-          
-      {/* TRUST / STANDARDS SECTION */}
-      <section className="py-10 border-y border-white/5 bg-white/[0.02]">
-        <div className="container mx-auto px-4">
-          <p className="text-center text-sm font-mono text-muted-foreground mb-8 uppercase tracking-widest">
-            Engineered for Compliance Standards
-          </p>
-          <div className="flex flex-wrap justify-center gap-8 md:gap-16 opacity-50 grayscale hover:grayscale-0 transition-all duration-500">
-            {/* You can replace these text blocks with actual SVGs later */}
-            <div className="flex items-center gap-2 text-xl font-bold font-heading text-white">
-              ISO<span className="text-brand-cyan">26262</span>
-            </div>
-            <div className="flex items-center gap-2 text-xl font-bold font-heading text-white">
-              ISO<span className="text-brand-purple">21434</span>
-            </div>
-            <div className="flex items-center gap-2 text-xl font-bold font-heading text-white">
-              MISRA <span className="text-white/60">C:2012</span>
-            </div>
-            <div className="flex items-center gap-2 text-xl font-bold font-heading text-white">
-              UN <span className="text-brand-cyan">R155</span>
-            </div>
-            <div className="flex items-center gap-2 text-xl font-bold font-heading text-white">
-              CERT <span className="text-brand-purple">C</span>
-            </div>
-          </div>
-        </div>
-      </section>
-      
-      {/* FEATURES GRID */}
-      <section className="py-24 relative">
-        <div className="container mx-auto px-4">
-          <div className="text-center max-w-3xl mx-auto mb-16">
-            <h2 className="text-3xl md:text-5xl font-heading font-bold mb-4">
-              Compliance is no longer an <span className="text-gradient-purple">afterthought</span>.
-            </h2>
-            <p className="text-muted-foreground text-lg">
-              TrinovaQ shifts safety and security left. We analyze your firmware AST in real-time, detecting violations before they ever reach the build server.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {/* Feature 1: Real-time Analysis */}
-            <div className="col-span-1 md:col-span-2 row-span-2 glass-panel p-8 rounded-2xl relative overflow-hidden group">
-              <div className="absolute top-0 right-0 p-4 opacity-20 group-hover:opacity-40 transition-opacity">
-                <Terminal className="w-24 h-24 text-brand-cyan" />
-              </div>
-              <h3 className="text-2xl font-bold text-white mb-2">Real-Time Static Analysis</h3>
-              <p className="text-muted-foreground mb-6 max-w-md">
-                Forget waiting for nightly CI/CD reports. Our engine parses MISRA C and CERT C rules as you type, highlighting vulnerabilities with <span className="text-brand-cyan">millisecond latency</span>.
-              </p>
-              {/* Abstract Visual */}
-              <div className="w-full h-48 bg-brand-dark/50 rounded-lg border border-white/10 p-4 font-mono text-xs text-gray-400">
-                 <div className="flex gap-2 mb-2"><span className="text-red-500">>></span> <span>Scanning src/drivers/can_bus.c...</span></div>
-                 <div className="flex gap-2 mb-2"><span className="text-yellow-500">[WARN]</span> <span>Rule 11.4: Cast between pointer and integer</span></div>
-                 <div className="flex gap-2 mb-2"><span className="text-red-500">[CRIT]</span> <span>CWE-119: Buffer overflow detected in frame_buffer</span></div>
-                 <div className="mt-4 flex gap-2 text-brand-cyan animate-pulse">
-                    <span className="w-2 h-4 bg-brand-cyan block"></span> Analysis Complete.
-                 </div>
-              </div>
-            </div>
-
-            {/* Feature 2: TARA Integration */}
-            <div className="glass-panel p-8 rounded-2xl border-t-4 border-brand-purple">
-              <h3 className="text-xl font-bold text-white mb-2">Native TARA Integration</h3>
-              <p className="text-sm text-muted-foreground">
-                Link code directly to Threat Analysis & Risk Assessment (TARA) items. Trace vulnerabilities from the silicon up to the requirement ID.
-              </p>
-            </div>
-
-            {/* Feature 3: Flash Protection */}
-            <div className="glass-panel p-8 rounded-2xl border-t-4 border-brand-cyan">
-              <h3 className="text-xl font-bold text-white mb-2">Secure Flash Interlocks</h3>
-              <p className="text-sm text-muted-foreground">
-                Prevent unsigned binary deployment. Our SafeAction™ controller ensures 
-                firmware signatures match the approved build hash before flashing.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
 
           {/* CODE PREVIEW (Mockup) */}
           <div className="mt-20 relative mx-auto max-w-5xl rounded-xl border border-white/10 bg-brand-dark/50 backdrop-blur-sm shadow-2xl overflow-hidden animate-fade-in [animation-delay:800ms]">
@@ -157,7 +77,86 @@ const Index = () => {
         </div>
       </section>
 
-      {/* FOOTER PLACEHOLDER */}
+      {/* TRUST / STANDARDS SECTION */}
+      <section className="py-10 border-y border-white/5 bg-white/[0.02]">
+        <div className="container mx-auto px-4">
+          <p className="text-center text-sm font-mono text-muted-foreground mb-8 uppercase tracking-widest">
+            Engineered for Compliance Standards
+          </p>
+          <div className="flex flex-wrap justify-center gap-8 md:gap-16 opacity-50 grayscale hover:grayscale-0 transition-all duration-500">
+            <div className="flex items-center gap-2 text-xl font-bold font-heading text-white">
+              ISO<span className="text-brand-cyan">26262</span>
+            </div>
+            <div className="flex items-center gap-2 text-xl font-bold font-heading text-white">
+              ISO<span className="text-brand-purple">21434</span>
+            </div>
+            <div className="flex items-center gap-2 text-xl font-bold font-heading text-white">
+              MISRA <span className="text-white/60">C:2012</span>
+            </div>
+            <div className="flex items-center gap-2 text-xl font-bold font-heading text-white">
+              UN <span className="text-brand-cyan">R155</span>
+            </div>
+            <div className="flex items-center gap-2 text-xl font-bold font-heading text-white">
+              CERT <span className="text-brand-purple">C</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* FEATURES GRID */}
+      <section className="py-24 relative">
+        <div className="container mx-auto px-4">
+          <div className="text-center max-w-3xl mx-auto mb-16">
+            <h2 className="text-3xl md:text-5xl font-heading font-bold mb-4">
+              Compliance is no longer an <span className="text-gradient-purple">afterthought</span>.
+            </h2>
+            <p className="text-muted-foreground text-lg">
+              TrinovaQ shifts safety and security left. We analyze your firmware AST in real-time, detecting violations before they ever reach the build server.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {/* Feature 1: Real-time Analysis */}
+            <div className="col-span-1 md:col-span-2 row-span-2 glass-panel p-8 rounded-2xl relative overflow-hidden group">
+              <div className="absolute top-0 right-0 p-4 opacity-20 group-hover:opacity-40 transition-opacity">
+                <Terminal className="w-24 h-24 text-brand-cyan" />
+              </div>
+              <h3 className="text-2xl font-bold text-white mb-2">Real-Time Static Analysis</h3>
+              <p className="text-muted-foreground mb-6 max-w-md">
+                Forget waiting for nightly CI/CD reports. Our engine parses MISRA C and CERT C rules as you type, highlighting vulnerabilities with <span className="text-brand-cyan">millisecond latency</span>.
+              </p>
+              {/* Abstract Visual - FIXED: Replaced >> with &gt;&gt; */}
+              <div className="w-full h-48 bg-brand-dark/50 rounded-lg border border-white/10 p-4 font-mono text-xs text-gray-400">
+                 <div className="flex gap-2 mb-2"><span className="text-red-500">&gt;&gt;</span> <span>Scanning src/drivers/can_bus.c...</span></div>
+                 <div className="flex gap-2 mb-2"><span className="text-yellow-500">[WARN]</span> <span>Rule 11.4: Cast between pointer and integer</span></div>
+                 <div className="flex gap-2 mb-2"><span className="text-red-500">[CRIT]</span> <span>CWE-119: Buffer overflow detected in frame_buffer</span></div>
+                 <div className="mt-4 flex gap-2 text-brand-cyan animate-pulse">
+                    <span className="w-2 h-4 bg-brand-cyan block"></span> Analysis Complete.
+                 </div>
+              </div>
+            </div>
+
+            {/* Feature 2: TARA Integration */}
+            <div className="glass-panel p-8 rounded-2xl border-t-4 border-brand-purple">
+              <h3 className="text-xl font-bold text-white mb-2">Native TARA Integration</h3>
+              <p className="text-sm text-muted-foreground">
+                Link code directly to Threat Analysis & Risk Assessment (TARA) items. Trace vulnerabilities from the silicon up to the requirement ID.
+              </p>
+            </div>
+
+            {/* Feature 3: Flash Protection */}
+            <div className="glass-panel p-8 rounded-2xl border-t-4 border-brand-cyan">
+              <h3 className="text-xl font-bold text-white mb-2">Secure Flash Interlocks</h3>
+              <p className="text-sm text-muted-foreground">
+                Prevent unsigned binary deployment. Our SafeAction™ controller ensures 
+                firmware signatures match the approved build hash before flashing.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* FOOTER */}
       <footer className="border-t border-white/10 py-12 text-center text-muted-foreground text-sm">
         <p>© 2026 TrinovaQ. Engineered for Critical Systems.</p>
       </footer>
