@@ -1,111 +1,67 @@
-
-import React, { useState } from 'react';
-import { Button } from "@/components/ui/button";
-import { Menu, X } from 'lucide-react';
+import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+import { Button } from "./ui/button";
+import { Menu, X } from "lucide-react";
 
 const Header = () => {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
-  const scrollToSection = (sectionId: string) => {
-    const element = document.getElementById(sectionId);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-    }
-    setIsMenuOpen(false);
-  };
+  useEffect(() => {
+    const handleScroll = () => setIsScrolled(window.scrollY > 20);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-md border-b border-border">
-      <div className="container mx-auto px-6 py-4">
-        <div className="flex items-center justify-between">
-          <div className="flex items-center space-x-2">
-            <div className="w-8 h-8 bg-gradient-to-br from-blue-600 to-cyan-600 rounded-lg flex items-center justify-center">
-              <span className="text-white font-bold text-sm">T</span>
-            </div>
-            <span className="text-xl font-bold text-foreground">TrinovaQ</span>
+    <header 
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+        isScrolled ? "bg-brand-dark/80 backdrop-blur-md border-b border-white/10 py-3" : "bg-transparent py-5"
+      }`}
+    >
+      <div className="container mx-auto px-4 flex items-center justify-between">
+        {/* Logo */}
+        <Link to="/" className="flex items-center gap-2">
+          <div className="w-8 h-8 rounded bg-gradient-to-br from-brand-cyan to-brand-purple flex items-center justify-center font-bold text-brand-dark">
+            Q
           </div>
+          <span className="text-xl font-heading font-bold tracking-tight text-white">
+            Trinova<span className="text-brand-cyan">Q</span>
+          </span>
+        </Link>
 
-          {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center space-x-8">
-            <button
-              onClick={() => scrollToSection('product')}
-              className="text-muted-foreground hover:text-foreground transition-colors"
-            >
-              Product
-            </button>
-            <button
-              onClick={() => scrollToSection('how-it-works')}
-              className="text-muted-foreground hover:text-foreground transition-colors"
-            >
-              How It Works
-            </button>
-            <button
-              onClick={() => scrollToSection('use-cases')}
-              className="text-muted-foreground hover:text-foreground transition-colors"
-            >
-              Use Cases
-            </button>
-            <button
-              onClick={() => scrollToSection('about')}
-              className="text-muted-foreground hover:text-foreground transition-colors"
-            >
-              About
-            </button>
-            <Button
-              onClick={() => scrollToSection('contact')}
-              className="bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700"
-            >
-              Request Demo
-            </Button>
-          </nav>
+        {/* Desktop Nav */}
+        <nav className="hidden md:flex items-center gap-8">
+          <Link to="/" className="text-sm font-medium text-muted-foreground hover:text-white transition-colors">Product</Link>
+          <Link to="/" className="text-sm font-medium text-muted-foreground hover:text-white transition-colors">Technology</Link>
+          <Link to="/" className="text-sm font-medium text-muted-foreground hover:text-white transition-colors">Company</Link>
+        </nav>
 
-          {/* Mobile Menu Button */}
-          <button
-            className="md:hidden"
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
-          >
-            {isMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-          </button>
+        {/* CTA */}
+        <div className="hidden md:flex items-center gap-4">
+          <Link to="/request-access" className="text-sm font-medium text-white hover:text-brand-cyan transition-colors">
+            Sign In
+          </Link>
+          <Button asChild className="bg-white text-brand-dark hover:bg-brand-cyan hover:text-brand-dark transition-all">
+            <Link to="/request-access">Request Demo</Link>
+          </Button>
         </div>
 
-        {/* Mobile Navigation */}
-        {isMenuOpen && (
-          <nav className="md:hidden mt-4 pb-4 border-t border-border pt-4">
-            <div className="flex flex-col space-y-4">
-              <button
-                onClick={() => scrollToSection('product')}
-                className="text-left text-muted-foreground hover:text-foreground transition-colors"
-              >
-                Product
-              </button>
-              <button
-                onClick={() => scrollToSection('how-it-works')}
-                className="text-left text-muted-foreground hover:text-foreground transition-colors"
-              >
-                How It Works
-              </button>
-              <button
-                onClick={() => scrollToSection('use-cases')}
-                className="text-left text-muted-foreground hover:text-foreground transition-colors"
-              >
-                Use Cases
-              </button>
-              <button
-                onClick={() => scrollToSection('about')}
-                className="text-left text-muted-foreground hover:text-foreground transition-colors"
-              >
-                About
-              </button>
-              <Button
-                onClick={() => scrollToSection('contact')}
-                className="bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700 w-full"
-              >
-                Request Demo
-              </Button>
-            </div>
-          </nav>
-        )}
+        {/* Mobile Toggle */}
+        <button className="md:hidden text-white" onClick={() => setMobileMenuOpen(!mobileMenuOpen)}>
+          {mobileMenuOpen ? <X /> : <Menu />}
+        </button>
       </div>
+      
+      {/* Mobile Menu (Simple implementation) */}
+      {mobileMenuOpen && (
+        <div className="absolute top-full left-0 w-full bg-brand-dark border-b border-white/10 p-4 flex flex-col gap-4 md:hidden">
+           <Link to="/" className="text-sm font-medium text-white">Product</Link>
+           <Button asChild className="w-full bg-brand-cyan text-brand-dark">
+            <Link to="/request-access">Request Demo</Link>
+          </Button>
+        </div>
+      )}
     </header>
   );
 };
