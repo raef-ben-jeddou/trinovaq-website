@@ -5,9 +5,12 @@ import { Label } from "@/components/ui/label";
 import { ArrowLeft, ShieldCheck, Cpu, Lock } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useState } from "react";
+import { toast } from "sonner";
+import { supabase } from "@/lib/supabaseClient";
 
 const RequestAccess = () => {
   const [submitted, setSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -57,15 +60,15 @@ const RequestAccess = () => {
               <form onSubmit={handleSubmit} className="space-y-4">
                 <div className="space-y-2">
                   <Label htmlFor="email">Work Email</Label>
-                  <Input id="email" type="email" placeholder="name@company.com" required className="bg-background/50 border-white/10" />
+                  <Input id="email" name="email" type="email" placeholder="name@company.com" required className="bg-background/50 border-white/10" />
                 </div>
                 <div className="space-y-2">
                   <Label htmlFor="company">Company</Label>
-                  <Input id="company" type="text" placeholder="OEM / Tier-1 Supplier" required className="bg-background/50 border-white/10" />
+                  <Input id="company" name="company" type="text" placeholder="OEM / Tier-1 Supplier" required className="bg-background/50 border-white/10" />
                 </div>
                 <div className="space-y-2">
                   <Label htmlFor="role">Role</Label>
-                  <Input id="role" type="text" placeholder="e.g. Embedded Security Engineer" required className="bg-background/50 border-white/10" />
+                  <Input id="role" name="role" type="text" placeholder="e.g. Embedded Security Engineer" required className="bg-background/50 border-white/10" />
                 </div>
                 
                 <Button type="submit" className="w-full bg-brand-cyan text-brand-dark hover:bg-cyan-400 font-semibold mt-4">

@@ -7,14 +7,14 @@ const HowItWorks = () => {
     {
       icon: Upload,
       title: "Integrate",
-      description: "Connect TrinovaQ to your existing CI/CD pipeline with our lightweight agent or API integration.",
-      details: "Supports Jenkins, GitLab CI, GitHub Actions, and custom build systems"
+      description: "Drop the SafeAction™ CLI gate into your CI pipeline with a single script line.",
+      details: "Works with any CI system — GitHub Actions, GitLab CI, Jenkins, or custom build scripts"
     },
     {
       icon: Search,
       title: "Analyze",
-      description: "Our AI engine scans your embedded C/C++ code for vulnerabilities using automotive-specific threat models.",
-      details: "Real-time analysis with zero false positives and contextual understanding"
+      description: "LLM-assisted triage scans your embedded C/C++ code using automotive-specific threat models.",
+      details: "AI reasoning reduces false positive burden by up to 94% vs. rule-only tools (ArXiv 2404.18496)"
     },
     {
       icon: Shield,
@@ -71,12 +71,10 @@ const HowItWorks = () => {
             <h3 className="text-xl font-semibold mb-6 text-center">Integration Example</h3>
             <div className="bg-slate-900 rounded-lg p-6 overflow-x-auto">
               <div className="text-green-400 font-mono text-sm space-y-1">
-                <div className="text-slate-500"># Add to your CI/CD pipeline</div>
-                <div><span className="text-blue-400">stages:</span></div>
-                <div className="ml-4"><span className="text-yellow-400">- security_scan:</span></div>
-                <div className="ml-8"><span className="text-cyan-400">script:</span> trinovaq scan --project embedded_ecu</div>
-                <div className="ml-8"><span className="text-cyan-400">artifacts:</span> security_report.json</div>
-                <div className="text-slate-500 mt-2"># That's it! Full security analysis in your workflow</div>
+                <div className="text-slate-500"># GitHub Actions example — SafeAction™ CI Gate</div>
+                <div><span className="text-blue-400">- name:</span> Safety Impact Check</div>
+                <div className="ml-4"><span className="text-cyan-400">run:</span> npm run analyze -- --impact-check --file src/safety_ctrl.c --threshold HIGH</div>
+                <div className="text-slate-500 mt-2"># Exits 1 if ASIL risk ≥ HIGH — blocks the merge automatically</div>
               </div>
             </div>
           </div>

@@ -34,8 +34,8 @@ const About = () => {
             </div>
             <h3 className="text-xl font-semibold mb-4">Proven Technology</h3>
             <p className="text-muted-foreground">
-              AI models trained on millions of lines of automotive code, 
-              with validation from real-world vulnerability discoveries.
+              Automotive-specific prompt engineering over state-of-the-art foundation models,
+              with ISO 26262, MISRA C, and ISO/SAE 21434 validation built into every analysis.
             </p>
           </div>
 

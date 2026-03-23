@@ -26,7 +26,7 @@ const Index = () => {
           </h1>
           
           <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-10 animate-fade-in [animation-delay:400ms]">
-            Write ASIL D compliant code from day one. TrinovaQ Studio integrates ISO 26262, MISRA C, and ISO 21434 checks directly into your development workflow.
+            Surface ASIL D compliance gaps before they reach code review. TrinovaQ Studio integrates ISO 26262, MISRA C, and ISO 21434 checks directly into your development workflow.
           </p>
           
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 animate-fade-in [animation-delay:600ms]">
@@ -123,7 +123,7 @@ const Index = () => {
               </div>
               <h3 className="text-2xl font-bold text-white mb-2">Real-Time Static Analysis</h3>
               <p className="text-muted-foreground mb-6 max-w-md">
-                Forget waiting for nightly CI/CD reports. Our engine parses MISRA C and CERT C rules as you type, highlighting vulnerabilities with <span className="text-brand-cyan">millisecond latency</span>.
+                Forget waiting for nightly CI/CD reports. Our engine parses MISRA C and CERT C rules as you type, with <span className="text-brand-cyan">sub-second IDE response</span> and AI-assisted triage that completes in under 4 minutes for a 10 KLOC project.
               </p>
               {/* Abstract Visual - FIXED: Replaced >> with &gt;&gt; */}
               <div className="w-full h-48 bg-brand-dark/50 rounded-lg border border-white/10 p-4 font-mono text-xs text-gray-400">
@@ -146,10 +146,10 @@ const Index = () => {
 
             {/* Feature 3: Flash Protection */}
             <div className="glass-panel p-8 rounded-2xl border-t-4 border-brand-cyan">
-              <h3 className="text-xl font-bold text-white mb-2">Secure Flash Interlocks</h3>
+              <h3 className="text-xl font-bold text-white mb-2">SafeAction™ CI Gate</h3>
               <p className="text-sm text-muted-foreground">
-                Prevent unsigned binary deployment. Our SafeAction™ controller ensures 
-                firmware signatures match the approved build hash before flashing.
+                Block unsafe merges before they land. The SafeAction™ CLI gate scores
+                ASIL risk on every commit and exits non-zero if your safety threshold is exceeded.
               </p>
             </div>
           </div>
