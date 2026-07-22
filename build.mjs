@@ -47,3 +47,9 @@ mkdirSync(join(ROOT, "dist"), { recursive: true });
 const out = join(ROOT, "dist", "index.html");
 writeFileSync(out, html);
 console.log(`Built dist/index.html (${(html.length / 1024).toFixed(0)} KB)`);
+
+// 6. Custom domain: emit CNAME so GitHub Pages serves the site on it
+if (cfg.customDomain) {
+  writeFileSync(join(ROOT, "dist", "CNAME"), cfg.customDomain + "\n");
+  console.log(`Wrote dist/CNAME (${cfg.customDomain})`);
+}
