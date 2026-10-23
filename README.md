@@ -14,6 +14,9 @@ Everything lives in `src/`:
 | `src/config.json` | Supabase URL and public key for the demo form. |
 | `src/partials/*.html` | One file per section: `nav`, `hero`, `what-we-do`, `problem`, `mission`, `cta`, `footer`, `background`. |
 | `assets/fonts/*.woff2` | Brand fonts, embedded at build time. |
+| `public/` | Files copied as-is to the site root: favicons, `og-image.png` (link-preview card), `robots.txt`, `sitemap.xml`, `site.webmanifest`. |
+
+The favicons and `og-image.png` are rendered from `public/favicon.svg` and `scripts/brand/og-card.html`. After editing either, regenerate them with `python scripts/render-brand-assets.py` (needs Pillow and a local Chrome or Edge) and commit the results. If you change the hero headline, update the OG card to match.
 
 To change wording, open the matching partial (e.g. edit the hero text in `src/partials/hero.html`). To change a color or spacing, edit `src/styles.css`.
 
@@ -25,7 +28,7 @@ Requires [Node.js](https://nodejs.org) (v18 or newer). No packages to install.
 npm run build
 ```
 
-This writes `dist/index.html`. Open that file in a browser, or serve the folder:
+This writes `dist/index.html` and copies `public/` into `dist/`. Open that file in a browser, or serve the folder:
 
 ```bash
 npx http-server dist -p 4173

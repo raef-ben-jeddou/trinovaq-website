@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<!-- Source for public/og-image.png (1200x630). Rendered by scripts/render-brand-assets.py -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<style>
+@font-face{font-family:'General Sans';font-weight:500;src:url(../../assets/fonts/general-sans-500.woff2) format('woff2')}
+@font-face{font-family:'General Sans';font-weight:600;src:url(../../assets/fonts/general-sans-600.woff2) format('woff2')}
+@font-face{font-family:'Poppins';font-weight:600;src:url(../../assets/fonts/poppins-600.woff2) format('woff2')}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{width:1200px;height:630px;overflow:hidden}
+body{
+  position:relative;color:#F2F5FB;font-family:'General Sans',sans-serif;
+  background:
+    radial-gradient(700px 480px at 92% 8%,rgba(140,70,184,.38),transparent 70%),
+    radial-gradient(620px 420px at 0% 100%,rgba(29,185,225,.22),transparent 70%),
+    linear-gradient(160deg,#13224A 0%,#0C1630 55%,#0A1328 100%);
+}
+.bar{position:absolute;left:0;right:0;bottom:0;height:8px;background:linear-gradient(118deg,#1DB9E1 0%,#379ED8 32%,#6E70BB 66%,#8C46B8 100%)}
+.hex{position:absolute;right:-90px;top:70px;width:520px;opacity:.13}
+.logo{position:absolute;left:84px;top:72px;display:flex;align-items:center;font-family:'Poppins',sans-serif;font-weight:600;font-size:46px;letter-spacing:-.01em}
+/* same proportions as the nav logo (.logo .mark in src/styles.css) */
+.logo svg{display:block;width:1.14em;height:auto;margin-left:-.08em;transform:translateY(.04em)}
+h1{position:absolute;left:84px;top:196px;width:960px;font-weight:600;font-size:76px;line-height:1.06;letter-spacing:-.025em}
+h1 .g{background:linear-gradient(118deg,#1DB9E1 0%,#379ED8 32%,#6E70BB 66%,#8C46B8 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
+.sub{position:absolute;left:84px;bottom:76px;font-weight:500;font-size:26px;color:#AFC0DD;letter-spacing:.01em}
+.sub b{color:#5CE1E6;font-weight:500;margin:0 .35em}
+.url{position:absolute;right:84px;bottom:76px;font-weight:500;font-size:26px;color:#AFC0DD}
+</style>
+</head>
+<body>
+<svg class="hex" viewBox="0 0 100 110" aria-hidden="true"><path d="M50 9 12 31v44l38 22 38-22V31Z" fill="none" stroke="#AFC0DD" stroke-width="2"/></svg>
+
+<div class="logo">Trinova<svg viewBox="0 0 100 110" aria-hidden="true">
+  <defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#1DB9E1"/><stop offset=".5" stop-color="#6E70BB"/><stop offset="1" stop-color="#8C46B8"/></linearGradient></defs>
+  <path d="M50 9 12 31v44l38 22 38-22V31Z" fill="none" stroke="url(#g)" stroke-width="13" stroke-linejoin="round"/>
+  <path d="M40 48 84 101" stroke="#0F1B3C" stroke-width="15" stroke-linecap="round"/>
+  <path d="M40 48 84 101" stroke="url(#g)" stroke-width="13" stroke-linecap="round"/>
+</svg></div>
+
+<h1>You write the code.<br>We make sure it's secure and <span class="g">compliant.</span></h1>
+
+<p class="sub">MISRA<b>·</b>ISO 26262<b>·</b>ISO/SAE 21434</p>
+<p class="url">trinovaq.io</p>
+
+<div class="bar"></div>
+</body>
+</html>

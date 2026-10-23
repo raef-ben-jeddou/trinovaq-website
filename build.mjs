@@ -1,6 +1,6 @@
 // TrinovaQ site build: assemble src/ components into a single self-contained dist/index.html
 // Zero dependencies. Run with: node build.mjs
-import { readFileSync, writeFileSync, mkdirSync } from "node:fs";
+import { readFileSync, writeFileSync, mkdirSync, cpSync, readdirSync } from "node:fs";
 import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -48,7 +48,11 @@ const out = join(ROOT, "dist", "index.html");
 writeFileSync(out, html);
 console.log(`Built dist/index.html (${(html.length / 1024).toFixed(0)} KB)`);
 
-// 6. Custom domain: emit CNAME so GitHub Pages serves the site on it
+// 6. Static files served as-is at the site root (favicons, og-image, robots.txt, sitemap.xml)
+cpSync(join(ROOT, "public"), join(ROOT, "dist"), { recursive: true });
+console.log(`Copied public/ to dist/ (${readdirSync(join(ROOT, "public")).join(", ")})`);
+
+// 7. Custom domain: emit CNAME so GitHub Pages serves the site on it
 if (cfg.customDomain) {
   writeFileSync(join(ROOT, "dist", "CNAME"), cfg.customDomain + "\n");
   console.log(`Wrote dist/CNAME (${cfg.customDomain})`);
