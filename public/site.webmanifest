@@ -1,0 +1,10 @@
+{
+  "name": "TrinovaQ",
+  "short_name": "TrinovaQ",
+  "icons": [
+    { "src": "/icon-512.png", "sizes": "512x512", "type": "image/png" }
+  ],
+  "theme_color": "#0D1321",
+  "background_color": "#0D1321",
+  "display": "browser"
+}
