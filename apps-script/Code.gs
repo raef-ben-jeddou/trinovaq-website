@@ -8,6 +8,10 @@
  * Setup and redeploy steps: see "Demo-request submissions" in README.md.
  */
 
+// Optional: ID of the Google Sheet to write to (the part between /d/ and /edit in its URL).
+// Leave empty when this script was opened from the Sheet itself (Extensions > Apps Script).
+// Set it when the script is a standalone project (created at script.google.com).
+const SHEET_ID = "";
 const SHEET_NAME = "demo_requests";
 const NOTIFY_TO = "Contact@trinovaq.io";
 const HEADERS = ["created_at", "name", "email", "company", "role", "message"];
@@ -77,7 +81,7 @@ function notify_(req, sheet) {
 }
 
 function getSheet_() {
-  const ss = SpreadsheetApp.getActiveSpreadsheet();
+  const ss = SHEET_ID ? SpreadsheetApp.openById(SHEET_ID) : SpreadsheetApp.getActiveSpreadsheet();
   let sheet = ss.getSheetByName(SHEET_NAME);
   if (!sheet) sheet = ss.insertSheet(SHEET_NAME);
   if (sheet.getLastRow() === 0) {

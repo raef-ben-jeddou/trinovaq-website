@@ -45,7 +45,7 @@ The "Request a demo" form posts to a Google Apps Script web app (`apps-script/Co
 ### One-time setup
 
 1. In the Google account that should own the data, create a Google Sheet (e.g. "TrinovaQ demo requests").
-2. In the Sheet, open **Extensions → Apps Script**. Replace the editor contents with `apps-script/Code.gs` and save.
+2. In the Sheet, open **Extensions → Apps Script**. Replace the editor contents with `apps-script/Code.gs` and save. (If you use a standalone project from script.google.com instead, set `SHEET_ID` at the top of the script to the Sheet's ID, the part of its URL between `/d/` and `/edit`, and make sure the script runs under a Google account that can edit the Sheet.)
 3. Pick `setup` in the function dropdown and click **Run**. Approve the permissions prompt (the script needs the Sheet and "send email as you"). This creates the `demo_requests` tab and its header row.
 4. Click **Deploy → New deployment**, choose type **Web app**, set **Execute as: Me** and **Who has access: Anyone**, then **Deploy**. Copy the **Web app URL** (it ends in `/exec`).
 5. Paste that URL into `src/config.json` as `formEndpoint` and push to `main`.
