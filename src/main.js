@@ -71,12 +71,11 @@
     });
   }
 
-  /* Demo request form → Supabase */
+  /* Demo request form → Google Sheet (Apps Script web app, see apps-script/Code.gs) */
   (function(){
     var form = document.getElementById("demoForm");
     if (!form) return;
-    var SUPA_URL = "__SUPA_URL__";
-    var SUPA_KEY = "__SUPA_KEY__";
+    var FORM_URL = "__FORM_URL__";
     var btn = document.getElementById("demoSubmit");
     var status = document.getElementById("formStatus");
     function say(msg, cls){ status.textContent = msg; status.className = "fstatus " + cls; }
@@ -90,27 +89,29 @@
         return;
       }
       btn.disabled = true; btn.textContent = "Sending…"; say("", "");
-      fetch(SUPA_URL + "/rest/v1/demo_requests", {
+      /* text/plain keeps this a "simple" CORS request: Apps Script cannot answer a preflight */
+      fetch(FORM_URL, {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "apikey": SUPA_KEY,
-          "Authorization": "Bearer " + SUPA_KEY,
-          "Prefer": "return=minimal"
-        },
+        headers: { "Content-Type": "text/plain;charset=utf-8" },
         body: JSON.stringify({
           name: name,
           email: email,
-          company: form.company.value.trim() || null,
-          role: form.role.value.trim() || null,
-          message: form.message.value.trim() || null
+          company: form.company.value.trim(),
+          role: form.role.value.trim(),
+          message: form.message.value.trim(),
+          website: form.website.value
         })
       }).then(function(r){
         if (!r.ok) throw new Error("bad status " + r.status);
+        return r.json();
+      }).then(function(d){
+        /* Apps Script always answers 200; the outcome is in the body */
+        if (!d || !d.ok) throw new Error("rejected: " + (d && d.error));
         form.reset();
         btn.textContent = "Request a demo"; btn.disabled = false;
         say("Request received. We will reach out shortly.", "ok");
-      }).catch(function(){
+      }).catch(function(err){
+        if (window.console) console.error("Demo request failed:", err);
         btn.textContent = "Request a demo"; btn.disabled = false;
         say("Something went wrong. Please email Contact@trinovaq.io instead.", "err");
       });

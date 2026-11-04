@@ -1,5 +1,4 @@
 {
-  "supabaseUrl": "https://ptwurabluawmmzxqbuaj.supabase.co",
-  "supabaseAnonKey": "sb_publishable_5KqXMmQp5D3TRHQlf04ZqA_n0TZUJY_",
+  "formEndpoint": "https://script.google.com/macros/s/AKfycbxpz7l2kv8k6-FwairIJR-NWkWudClK4mWNO19VyLeiHCpyyY8iP-phXCPY11N6GHgFDg/exec",
   "customDomain": "trinovaq.io"
 }

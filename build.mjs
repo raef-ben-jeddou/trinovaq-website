@@ -30,10 +30,17 @@ for (const [token, path] of Object.entries(FONTS)) {
   html = html.split(token).join(b64);
 }
 
-// 3. Inject Supabase config (publishable key is public by design, RLS-protected)
+// 3. Inject the demo form endpoint (Google Apps Script web app /exec URL; public by design, write-only)
 const cfg = JSON.parse(read(join(SRC, "config.json")));
-html = html.split("__SUPA_URL__").join(cfg.supabaseUrl);
-html = html.split("__SUPA_KEY__").join(cfg.supabaseAnonKey);
+if (!/^https:\/\/script\.google\.com\/macros\/s\/[^/]+\/exec$/.test(cfg.formEndpoint || "")) {
+  console.error(
+    "Build failed: src/config.json \"formEndpoint\" must be the Apps Script web app URL " +
+      "(https://script.google.com/macros/s/<id>/exec). Got: " + JSON.stringify(cfg.formEndpoint) +
+      "\nSee \"Demo-request submissions\" in README.md."
+  );
+  process.exit(1);
+}
+html = html.split("__FORM_URL__").join(cfg.formEndpoint);
 
 // 4. Guard: no build tokens may remain
 const leftover = html.match(/__[A-Z0-9_]+__/g);
