@@ -171,7 +171,7 @@
       });
       cell(cells.ts, "—"); cell(cells.weak, "—"); cell(cells.test, "—"); cell(cells.ev, "—");
       setStatus("Exposed");
-      say("Pick your way in.", "This is a connected product, drawn the way its engineers see it. Three interfaces, three ways to break it.");
+      say("Pick your way in.", "This is an embedded system, drawn the way its engineers see it. Three interfaces, three ways to break it.");
       stage("pick");
     }
 
