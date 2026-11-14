@@ -1,62 +1,42 @@
-// TrinovaQ site build: assemble src/ components into a single self-contained dist/index.html
+// TrinovaQ site build: copy site/ into dist/, fill in the form endpoint, write CNAME.
 // Zero dependencies. Run with: node build.mjs
-import { readFileSync, writeFileSync, mkdirSync } from "node:fs";
-import { dirname, join, resolve } from "node:path";
+import { readFileSync, writeFileSync, rmSync, mkdirSync, cpSync, existsSync } from "node:fs";
+import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const ROOT = dirname(fileURLToPath(import.meta.url));
-const SRC = join(ROOT, "src");
-const read = (p) => readFileSync(p, "utf8");
+const SITE = join(ROOT, "site");
+const DIST = join(ROOT, "dist");
+const cfg = JSON.parse(readFileSync(join(ROOT, "config.json"), "utf8"));
 
-// 1. Resolve <!-- @include path --> recursively (paths relative to src/)
-const INCLUDE = /<!--\s*@include\s+([^\s]+)\s*-->/g;
-function assemble(file, seen = new Set()) {
-  const abs = resolve(SRC, file);
-  if (seen.has(abs)) throw new Error("Circular include: " + file);
-  seen.add(abs);
-  return read(abs).replace(INCLUDE, (_, inc) => assemble(inc, new Set(seen)));
-}
-let html = assemble("index.html");
-
-// 2. Embed fonts as base64 (raw woff2 -> data URI token)
-const FONTS = {
-  __GS400__: "assets/fonts/general-sans-400.woff2",
-  __GS500__: "assets/fonts/general-sans-500.woff2",
-  __GS600__: "assets/fonts/general-sans-600.woff2",
-  __POPPINS__: "assets/fonts/poppins-600.woff2",
-};
-for (const [token, path] of Object.entries(FONTS)) {
-  const b64 = readFileSync(join(ROOT, path)).toString("base64");
-  html = html.split(token).join(b64);
-}
-
-// 3. Inject the demo form endpoint (Google Apps Script web app /exec URL; public by design, write-only)
-const cfg = JSON.parse(read(join(SRC, "config.json")));
-if (!/^https:\/\/script\.google\.com\/macros\/s\/[^/]+\/exec$/.test(cfg.formEndpoint || "")) {
-  console.error(
-    "Build failed: src/config.json \"formEndpoint\" must be the Apps Script web app URL " +
-      "(https://script.google.com/macros/s/<id>/exec). Got: " + JSON.stringify(cfg.formEndpoint) +
-      "\nSee \"Demo-request submissions\" in README.md."
-  );
-  process.exit(1);
-}
-html = html.split("__FORM_URL__").join(cfg.formEndpoint);
-
-// 4. Guard: no build tokens may remain
-const leftover = html.match(/__[A-Z0-9_]+__/g);
-if (leftover) {
-  console.error("Build failed: unreplaced tokens:", [...new Set(leftover)].join(", "));
+// 1. The form endpoint must be a real Apps Script web app URL, so a placeholder can never ship
+const ENDPOINT = /^https:\/\/script\.google\.com\/macros\/s\/[A-Za-z0-9_-]+\/exec$/;
+if (!ENDPOINT.test(cfg.formEndpoint || "")) {
+  console.error("Build failed: config.json formEndpoint is not an Apps Script /exec URL.");
   process.exit(1);
 }
 
-// 5. Write output
-mkdirSync(join(ROOT, "dist"), { recursive: true });
-const out = join(ROOT, "dist", "index.html");
-writeFileSync(out, html);
-console.log(`Built dist/index.html (${(html.length / 1024).toFixed(0)} KB)`);
+// 2. Fresh copy of the site
+rmSync(DIST, { recursive: true, force: true });
+mkdirSync(DIST, { recursive: true });
+cpSync(SITE, DIST, { recursive: true });
 
-// 6. Custom domain: emit CNAME so GitHub Pages serves the site on it
+// 3. Fill in build tokens
+const js = join(DIST, "js", "main.js");
+writeFileSync(js, readFileSync(js, "utf8").split("__FORM_ENDPOINT__").join(cfg.formEndpoint));
+
+// 4. Guard: the page and its files must all be there, with no tokens left
+for (const f of ["index.html", "css/style.css", "js/main.js", "assets/logo-mark.svg", "Logo.jpg"]) {
+  if (!existsSync(join(DIST, f))) { console.error("Build failed: missing " + f); process.exit(1); }
+}
+for (const f of ["index.html", "css/style.css", "js/main.js"]) {
+  const left = readFileSync(join(DIST, f), "utf8").match(/__[A-Z0-9_]+__/g);
+  if (left) { console.error("Build failed: unreplaced tokens in " + f + ": " + [...new Set(left)].join(", ")); process.exit(1); }
+}
+console.log("Built dist/ from site/");
+
+// 5. Custom domain: emit CNAME so GitHub Pages serves the site on it
 if (cfg.customDomain) {
-  writeFileSync(join(ROOT, "dist", "CNAME"), cfg.customDomain + "\n");
+  writeFileSync(join(DIST, "CNAME"), cfg.customDomain + "\n");
   console.log(`Wrote dist/CNAME (${cfg.customDomain})`);
 }

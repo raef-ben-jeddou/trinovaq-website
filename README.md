@@ -1,22 +1,22 @@
 # TrinovaQ Website
 
-Marketing site for TrinovaQ. The site is authored as small components under `src/` and compiled into a single self-contained `dist/index.html` (fonts and styles inlined, no external assets except the demo-request form's call to a Google Apps Script web app).
+Marketing site for TrinovaQ (trinovaq.io). A plain static site: no framework and no packages. The only external calls are the web fonts (Fontshare, Google Fonts) and the demo-request form, which posts to a Google Apps Script web app.
 
 ## Editing the site
 
-Everything lives in `src/`:
+Everything lives in `site/`:
 
 | File | What it holds |
 |------|---------------|
-| `src/index.html` | Page shell. Assembles the sections with `<!-- @include ... -->` markers. |
-| `src/styles.css` | All CSS. |
-| `src/main.js` | All JavaScript (theme toggle, animations, silk background, demo form). |
-| `src/config.json` | `formEndpoint`: the Apps Script web app URL the demo form posts to. |
+| `site/index.html` | All page content and markup, section by section. |
+| `site/css/style.css` | All CSS. Colour tokens for the dark, light and Hacker modes are at the top. |
+| `site/js/main.js` | All JavaScript: mode switch, animations, hero circuit background, Attacker's view, Hacker mode, demo form. |
+| `site/assets/` | The logo as SVG (`logo.svg`, and `logo-mark.svg` for the favicon). |
+| `site/Logo.jpg` | The original logo, used as the social-share image. |
+| `config.json` | `formEndpoint` (the Apps Script web app URL the demo form posts to) and `customDomain`. |
 | `apps-script/Code.gs` | The Apps Script that receives demo requests (stores them in a Google Sheet, emails the team). Not part of the site build. |
-| `src/partials/*.html` | One file per section: `nav`, `hero`, `what-we-do`, `problem`, `mission`, `cta`, `footer`, `background`. |
-| `assets/fonts/*.woff2` | Brand fonts, embedded at build time. |
 
-To change wording, open the matching partial (e.g. edit the hero text in `src/partials/hero.html`). To change a color or spacing, edit `src/styles.css`.
+To change wording, edit `site/index.html`. To change a colour or spacing, edit `site/css/style.css`.
 
 ## Build and preview locally
 
@@ -26,7 +26,7 @@ Requires [Node.js](https://nodejs.org) (v18 or newer). No packages to install.
 npm run build
 ```
 
-This writes `dist/index.html`. Open that file in a browser, or serve the folder:
+This copies `site/` into `dist/`, fills in the form endpoint from `config.json` and writes `dist/CNAME`. Serve the folder to preview it:
 
 ```bash
 npx http-server dist -p 4173
@@ -48,7 +48,7 @@ The "Request a demo" form posts to a Google Apps Script web app (`apps-script/Co
 2. In the Sheet, open **Extensions → Apps Script**. Replace the editor contents with `apps-script/Code.gs` and save. (If you use a standalone project from script.google.com instead, set `SHEET_ID` at the top of the script to the Sheet's ID, the part of its URL between `/d/` and `/edit`, and make sure the script runs under a Google account that can edit the Sheet.)
 3. Pick `setup` in the function dropdown and click **Run**. Approve the permissions prompt (the script needs the Sheet and "send email as you"). This creates the `demo_requests` tab and its header row.
 4. Click **Deploy → New deployment**, choose type **Web app**, set **Execute as: Me** and **Who has access: Anyone**, then **Deploy**. Copy the **Web app URL** (it ends in `/exec`).
-5. Paste that URL into `src/config.json` as `formEndpoint` and push to `main`.
+5. Paste that URL into `config.json` as `formEndpoint` and push to `main`.
 
 If **Anyone** is missing from the access options, a Google Workspace admin policy is blocking public web apps: ask the admin to allow it, or deploy from an account that permits it.
 

@@ -1,0 +1,569 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>TrinovaQ · Cybersecurity and compliance for connected products</title>
+<meta name="description" content="TrinovaQ helps teams building connected, embedded products find threats, catch vulnerabilities and prove compliance.">
+<meta name="theme-color" content="#0F1838">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://trinovaq.io/">
+<meta property="og:title" content="TrinovaQ · Cybersecurity and compliance for connected products">
+<meta property="og:description" content="Threat analysis, vulnerability detection, embedded security testing and compliance evidence for connected products.">
+<meta property="og:image" content="https://trinovaq.io/Logo.jpg">
+<link rel="icon" href="assets/logo-mark.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://api.fontshare.com">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://api.fontshare.com/v2/css?f[]=general-sans@400,500,600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<script>
+(function () {
+  var d = document.documentElement;
+  d.className = "js";
+  try { var t = localStorage.getItem("tq-theme"); if (t === "light" || t === "blueprint") d.setAttribute("data-theme", t); } catch (e) {}
+})();
+</script>
+</head>
+<body>
+
+<a class="skip" href="#main">Skip to content</a>
+
+<!-- The TrinovaQ logo, traced from Logo.jpg and drawn once here; the nav and footer reuse it -->
+<svg class="sprite" width="0" height="0" aria-hidden="true" focusable="false">
+  <defs>
+    <linearGradient id="tq-ring" gradientUnits="userSpaceOnUse" x1="776" y1="424" x2="884" y2="604">
+      <stop offset="0" stop-color="#25B2E6"/>
+      <stop offset=".5" stop-color="#5563C4"/>
+      <stop offset="1" stop-color="#8F47B9"/>
+    </linearGradient>
+    <linearGradient id="tq-tail" gradientUnits="userSpaceOnUse" x1="808" y1="524" x2="896" y2="599">
+      <stop offset="0" stop-color="#4F70D0"/>
+      <stop offset="1" stop-color="#9C4DC3"/>
+    </linearGradient>
+    <mask id="tq-cut" maskUnits="userSpaceOnUse" x="700" y="400" width="230" height="230">
+      <rect x="700" y="400" width="230" height="230" fill="#fff"/>
+      <path d="M808 524 896 599" stroke="#000" stroke-width="28" stroke-linecap="round"/>
+    </mask>
+  </defs>
+  <symbol id="tq-logo" viewBox="113 415 796 200">
+    <g fill="none" stroke="currentColor" stroke-width="21.5">
+      <path d="M119.3 462.6H226.8" stroke-width="20"/>
+      <path d="M172 453V578" stroke-width="22.5"/>
+      <path d="M229.4 578V488M229.4 542C229.4 513 246 498.7 272.5 498.7"/>
+      <path d="M298.2 578V488"/>
+      <path d="M337.1 578V488M337.1 530A31.85 31.85 0 0 1 400.8 530V578"/>
+      <circle cx="475.9" cy="532.6" r="37.75"/>
+      <circle cx="664.6" cy="532.6" r="37.75"/>
+      <path d="M702 488V578"/>
+    </g>
+    <path fill="currentColor" d="M529.5 488H552L573 545.5 594 488H616.5L583.5 578H562.5Z"/>
+    <path fill="currentColor" d="M712.75 560Q713.5 573 720.5 578H712.75Z"/>
+    <circle cx="298.2" cy="463.1" r="12.4" fill="#22B6E8"/>
+    <path mask="url(#tq-cut)" fill="url(#tq-ring)" fill-rule="evenodd" stroke="url(#tq-ring)" stroke-width="12" stroke-linejoin="round"
+          d="M816.4 426.6 893.1 470.9V559.5L816.4 603.8 739.7 559.5V470.9ZM816.4 450.9 872.1 483.05V547.35L816.4 579.5 760.7 547.35V483.05Z"/>
+    <path d="M808 524 896 599" fill="none" stroke="url(#tq-tail)" stroke-width="17.5" stroke-linecap="round"/>
+  </symbol>
+</svg>
+
+<!-- ───────── Nav ───────── -->
+<header class="nav" id="nav">
+  <div class="wrap nav-in">
+    <a class="brand" href="#top" aria-label="TrinovaQ, back to top">
+      <svg class="brand-logo" viewBox="0 0 796 200" aria-hidden="true"><use href="#tq-logo"/></svg>
+    </a>
+
+    <nav class="nav-links" id="navLinks" aria-label="Main">
+      <a href="#platform">Platform</a>
+      <a href="#how">How it works</a>
+      <a href="#automotive">Automotive</a>
+      <a href="#company">About</a>
+      <a class="nav-cta" href="#demo">Book a demo →</a>
+    </nav>
+
+    <div class="nav-end">
+      <div class="theme-sw" role="group" aria-label="Colour theme">
+        <button type="button" data-theme-set="dark" title="Dark" aria-label="Dark theme" aria-pressed="true"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.2A8 8 0 0 1 9.8 4a8 8 0 1 0 10.2 10.2Z"/></svg></button>
+        <button type="button" data-theme-set="light" title="Light" aria-label="Light theme" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2.5v2.2M12 19.3v2.2M2.5 12h2.2M19.3 12h2.2M5.3 5.3l1.6 1.6M17.1 17.1l1.6 1.6M5.3 18.7l1.6-1.6M17.1 6.9l1.6-1.6"/></svg></button>
+        <button type="button" data-theme-set="blueprint" title="Hacker mode" aria-label="Hacker mode: be the attacker" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="5" width="17" height="14" rx="2.5"/><path d="M7.5 10l3 2.5-3 2.5M13 15h3.5"/></svg></button>
+      </div>
+      <a class="btn btn-sm" href="#demo">Book a demo</a>
+      <button class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="navLinks" aria-label="Menu">
+        <span></span><span></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- ───────── Hacker mode (the third switch in the nav): be the attacker, then switch sides ───────── -->
+<section class="lab" id="lab" data-stage="pick" aria-labelledby="labTitle">
+  <div class="wrap">
+    <header class="lab-head">
+      <p class="label">Be the attacker</p>
+      <h1 class="lab-h" id="labTitle" aria-live="polite">Pick your way in.</h1>
+      <p class="lab-sub" id="labSub"></p>
+    </header>
+
+    <div class="lab-grid">
+      <div class="lab-sheet">
+        <div class="lab-bar"><span>Connected product · drawing A</span><span class="lab-status" id="labStatus">Exposed</span></div>
+        <svg class="lab-svg" viewBox="0 0 760 400" role="img" aria-label="Drawing of a connected device: three interfaces on the left, a controller and storage in the middle, and its functions on the right.">
+          <g class="lab-zone"><text x="40" y="34">Interfaces</text><text x="290" y="34">Processing</text><text x="540" y="34">Functions</text><path d="M255 22V330M505 22V330"/></g>
+          <g class="lab-traces">
+            <path d="M220 102H250V140H290"/><path d="M220 192H262V172H290"/><path d="M220 282H274V192H290"/>
+            <path d="M380 250V205"/>
+            <path d="M540 102H510V140H470"/><path d="M540 192H498V172H470"/><path d="M540 282H486V192H470"/>
+          </g>
+          <path class="lab-atk" id="labSeg1" pathLength="1"/>
+          <path class="lab-atk" id="labSeg2" pathLength="1"/>
+          <g class="lab-mod is-entry" data-m="modem" data-entry="cellular"><rect x="40" y="70" width="180" height="64" rx="6"/><text x="56" y="97">Cellular modem</text><text class="lab-sub2" data-text="remote link" x="56" y="117">remote link</text></g>
+          <g class="lab-mod is-entry" data-m="bt" data-entry="bluetooth"><rect x="40" y="160" width="180" height="64" rx="6"/><text x="56" y="187">Bluetooth</text><text class="lab-sub2" data-text="local link" x="56" y="207">local link</text></g>
+          <g class="lab-mod is-entry" data-m="debug" data-entry="debug"><rect x="40" y="250" width="180" height="64" rx="6"/><text x="56" y="277">Debug port</text><text class="lab-sub2" data-text="service access" x="56" y="297">service access</text></g>
+          <g class="lab-mod" data-m="ctrl"><rect x="290" y="115" width="180" height="90" rx="6"/><text x="306" y="142">Main controller</text><text class="lab-sub2" data-text="runs the application" x="306" y="162">runs the application</text></g>
+          <g class="lab-mod" data-m="flash"><rect x="290" y="250" width="180" height="64" rx="6"/><text x="306" y="277">Flash storage</text><text class="lab-sub2" data-text="keys and configuration" x="306" y="297">keys and configuration</text></g>
+          <g class="lab-mod" data-m="update"><rect x="540" y="70" width="180" height="64" rx="6"/><text x="556" y="97">Update client</text><text class="lab-sub2" data-text="over-the-air updates" x="556" y="117">over-the-air updates</text></g>
+          <g class="lab-mod" data-m="act"><rect x="540" y="160" width="180" height="64" rx="6"/><text x="556" y="187">Actuator driver</text><text class="lab-sub2" data-text="physical output" x="556" y="207">physical output</text></g>
+          <g class="lab-mod" data-m="sensor"><rect x="540" y="250" width="180" height="64" rx="6"/><text x="556" y="277">Sensor inputs</text><text class="lab-sub2" data-text="measurements" x="556" y="297">measurements</text></g>
+          <g class="lab-tag" id="labTag"><rect width="150" height="18" rx="3"/><text x="8" y="12.6"></text></g>
+          <g class="lab-stop" id="labStop"><circle r="10"/><path d="M-4-4l8 8M4-4l-8 8"/></g>
+          <g class="lab-stamp" id="labStamp" transform="translate(630 362) rotate(-6)"><rect x="-86" y="-20" width="172" height="40" rx="4"/><text y="5.5">AUDIT-READY</text></g>
+        </svg>
+        <dl class="lab-block">
+          <div><dt>Threat scenario</dt><dd id="labTs" class="empty">—</dd></div>
+          <div><dt>Weakness</dt><dd id="labWeak" class="empty">—</dd></div>
+          <div><dt>Test</dt><dd id="labTest" class="empty">—</dd></div>
+          <div><dt>Evidence</dt><dd id="labEv" class="empty">—</dd></div>
+        </dl>
+      </div>
+
+      <div class="lab-panel">
+        <div data-panel="pick">
+          <div class="lab-entries">
+            <button type="button" class="lab-entry" data-entry="cellular"><b>Cellular modem</b><small>from anywhere, over the network</small></button>
+            <button type="button" class="lab-entry" data-entry="bluetooth"><b>Bluetooth</b><small>from nearby, without touching it</small></button>
+            <button type="button" class="lab-entry" data-entry="debug"><b>Debug port</b><small>with the device in your hands</small></button>
+          </div>
+        </div>
+
+        <div data-panel="attack" hidden>
+          <div class="lab-term">
+            <p class="lab-term-bar">Your terminal</p>
+            <div class="lab-term-body" id="labTerm" aria-live="polite"></div>
+          </div>
+          <button type="button" class="btn" id="labRun">Run next command <kbd>Enter</kbd></button>
+          <p class="lab-result" id="labResult" aria-live="polite"></p>
+          <button type="button" class="btn" id="labDefend" hidden>Now switch sides <span class="arr" aria-hidden="true">→</span></button>
+        </div>
+
+        <div data-panel="defend" hidden>
+          <div class="lab-steps">
+            <button type="button" class="lab-step">Analyse the threat</button>
+            <button type="button" class="lab-step">Find the weakness</button>
+            <button type="button" class="lab-step">Test the device</button>
+            <button type="button" class="lab-step">Keep the proof</button>
+          </div>
+          <div class="lab-term is-small" id="labTermBox2" hidden>
+            <p class="lab-term-bar">Security test · your attack, replayed</p>
+            <div class="lab-term-body" id="labTerm2" aria-live="polite"></div>
+          </div>
+          <p class="lab-note" id="labNote" aria-live="polite"></p>
+          <div class="lab-end" id="labEnd" hidden>
+            <a class="btn" href="#demo">Book a demo <span class="arr" aria-hidden="true">→</span></a>
+            <button type="button" class="btn btn-ghost" id="labAgain">Try another way in</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<main id="main">
+
+<!-- ───────── Hero ───────── -->
+<section class="hero" id="top">
+  <canvas class="hero-grid" id="heroGrid" aria-hidden="true"></canvas>
+
+  <div class="wrap hero-in">
+    <p class="eyebrow hero-fade" style="--d:0">Threat analysis · Vulnerability detection · Security testing · Compliance</p>
+
+    <h1 class="hero-h">
+      <span class="ln"><span>Cybersecurity and compliance</span></span>
+      <span class="ln"><span>for connected products.</span></span>
+    </h1>
+
+    <div class="hero-row">
+      <div class="hero-copy">
+        <p class="hero-sub hero-fade" style="--d:1">TrinovaQ helps teams building connected, embedded products find threats, catch vulnerabilities and prove compliance.</p>
+        <a class="btn hero-fade" style="--d:2" href="#demo">Book a demo <span class="arr" aria-hidden="true">→</span></a>
+      </div>
+
+      <div class="backed hero-fade" style="--d:3">
+        <p class="backed-t">Backed by</p>
+        <ul>
+          <li>Startupbootcamp</li>
+          <li>Canopy by Founders Inc</li>
+          <li>Open Startup International</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Attack path illustration -->
+    <figure class="hp hero-fade" id="heroPanel" style="--d:4">
+      <div class="hp-bar">
+        <span class="hp-file">attack path <i>/</i> TS-014</span>
+        <span class="hp-status" aria-hidden="true">
+          <span class="st st-0">Mapping attack surface</span>
+          <span class="st st-1">Tracing attack path</span>
+          <span class="st st-2">Risk 5 · action needed</span>
+          <span class="st st-3">Treated · evidence linked</span>
+        </span>
+      </div>
+
+      <div class="hp-body">
+        <div class="hp-scroll">
+        <svg class="hp-graph" viewBox="0 0 640 300" role="img" aria-label="Illustration: an attack path from a cellular entry point through a gateway and controller to the control commands of a connected product, then closed by a security control.">
+
+          <g class="col-t">
+            <text x="16" y="22">ENTRY POINTS</text>
+            <text x="180" y="22">NETWORK</text>
+            <text x="360" y="22">CONTROL</text>
+            <text x="524" y="22">ASSET</text>
+          </g>
+
+          <g class="edges">
+            <path d="M116 62 C148 62,148 96,180 96"/>
+            <path d="M116 130 C148 130,148 96,180 96"/>
+            <path d="M116 130 C148 130,148 232,180 232"/>
+            <path d="M116 198 C148 198,148 232,180 232"/>
+            <path d="M116 266 C148 266,148 232,180 232"/>
+            <path d="M296 96 C328 96,328 130,360 130"/>
+            <path d="M296 232 L360 232"/>
+            <path d="M296 96 C328 96,328 232,360 232"/>
+            <path d="M460 130 L524 130"/>
+            <path d="M460 232 L524 232"/>
+          </g>
+
+          <path class="attack" pathLength="1" d="M116 130 C148 130,148 96,180 96 L296 96 C328 96,328 130,360 130 L460 130 L524 130"/>
+
+          <g class="nodes">
+            <g class="node"><rect x="16" y="44" width="100" height="36" rx="7"/><text x="66" y="66">Bluetooth</text></g>
+            <g class="node hot"><rect x="16" y="112" width="100" height="36" rx="7"/><text x="66" y="134">Cellular</text></g>
+            <g class="node"><rect x="16" y="180" width="100" height="36" rx="7"/><text x="66" y="202">USB</text></g>
+            <g class="node"><rect x="16" y="248" width="100" height="36" rx="7"/><text x="66" y="270">Debug port</text></g>
+
+            <g class="node hot"><rect x="180" y="78" width="116" height="36" rx="7"/><text x="238" y="100">Gateway</text></g>
+            <g class="node"><rect x="180" y="214" width="116" height="36" rx="7"/><text x="238" y="236">App processor</text></g>
+
+            <g class="node hot"><rect x="360" y="112" width="100" height="36" rx="7"/><text x="410" y="134">Controller</text></g>
+            <g class="node"><rect x="360" y="214" width="100" height="36" rx="7"/><text x="410" y="236">Update client</text></g>
+
+            <g class="node hot asset"><rect x="524" y="112" width="100" height="36" rx="7"/><text x="574" y="134">Commands</text></g>
+            <g class="node"><rect x="524" y="214" width="100" height="36" rx="7"/><text x="574" y="236">Firmware</text></g>
+          </g>
+
+          <g class="control">
+            <path d="M328 102 337.5 107.5v11L328 124l-9.5-5.5v-11Z"/>
+            <path class="tick" d="M323.6 113l3 3 5.4-6"/>
+            <text x="420" y="174">+ message authentication</text>
+          </g>
+        </svg>
+        </div>
+
+        <dl class="readout">
+          <div class="ro ro-1"><dt>Threat scenario</dt><dd>Spoofed command over the cellular link</dd></div>
+          <div class="ro ro-2"><dt>Attack feasibility</dt><dd><span class="swap"><span class="a">High</span><span class="b">Low</span></span></dd></div>
+          <div class="ro ro-2"><dt>Impact</dt><dd>Severe</dd></div>
+          <div class="ro ro-2"><dt>Risk value</dt><dd><span class="swap risk"><span class="a">5</span><span class="b">2</span></span></dd></div>
+          <div class="ro ro-3"><dt>Evidence</dt><dd>TC-033 passed, linked</dd></div>
+        </dl>
+      </div>
+      <figcaption>Illustration of an attack path analysis.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- ───────── Problem ───────── -->
+<section class="sec problem alt" id="problem">
+  <div class="wrap">
+    <p class="label rv">The problem</p>
+    <div class="split">
+      <h2 class="h2 rv">Security is still a second project.</h2>
+      <p class="lede rv">Most teams build the product first and assemble the security case afterwards. By then the expensive decisions have already been made.</p>
+    </div>
+
+    <ol class="rows">
+      <li class="rv">
+        <h3>Findings arrive late</h3>
+        <p>Weaknesses surface in system testing or after release, when every fix costs the most.</p>
+      </li>
+      <li class="rv">
+        <h3>Evidence is manual</h3>
+        <p>Threat models, test results and requirements sit in separate spreadsheets, linked by hand.</p>
+      </li>
+      <li class="rv">
+        <h3>Audit week is a scramble</h3>
+        <p>The trail from risk to proof gets stitched together under deadline pressure.</p>
+      </li>
+    </ol>
+  </div>
+</section>
+
+<!-- ───────── Attacker's view: a lens that shows the same device as an attacker sees it ───────── -->
+<section class="sec xray" id="attacker-view">
+  <div class="wrap">
+    <p class="label rv">Attacker's view</p>
+    <div class="split">
+      <h2 class="h2 rv">See your product the way an attacker does.</h2>
+      <p class="lede rv">Move the lens across the device. Everything it uncovers is a weakness that a threat analysis is meant to find before release.</p>
+    </div>
+
+    <div class="xr rv">
+      <div class="xr-stage" id="xrStage">
+        <div class="panel-bar"><span>Device model</span><span>Move the lens to inspect</span></div>
+        <svg class="xr-svg" viewBox="0 0 760 350" role="img" aria-label="Illustration: a block diagram of a connected device in three groups, interfaces, processing and functions. A small lens moves across it and marks five weak points.">
+          <defs>
+            <clipPath id="xrClip"><circle id="xrClipC" cx="130" cy="102" r="56"/></clipPath>
+          </defs>
+
+          <!-- the device as the team draws it -->
+          <g class="xr-base">
+            <g class="xr-zone"><text x="40" y="42">Interfaces</text><text x="290" y="42">Processing</text><text x="540" y="42">Functions</text><path d="M255 28V326M505 28V326"/></g>
+            <g class="xr-traces">
+              <path d="M220 102H250V140H290"/><path d="M220 192H262V172H290"/><path d="M220 282H274V192H290"/>
+              <path d="M380 250V205"/>
+              <path d="M540 102H510V140H470"/><path d="M540 192H498V172H470"/><path d="M540 282H486V192H470"/>
+            </g>
+            <g class="xr-mod"><rect x="40" y="70" width="180" height="64" rx="6"/><text x="56" y="97">Cellular modem</text><text class="xr-flag" x="56" y="117">remote link</text></g>
+            <g class="xr-mod"><rect x="40" y="160" width="180" height="64" rx="6"/><text x="56" y="187">Bluetooth</text><text class="xr-flag" x="56" y="207">local link</text></g>
+            <g class="xr-mod"><rect x="40" y="250" width="180" height="64" rx="6"/><text x="56" y="277">Debug port</text><text class="xr-flag" x="56" y="297">service access</text></g>
+            <g class="xr-mod"><rect x="290" y="115" width="180" height="90" rx="6"/><text x="306" y="142">Main controller</text><text class="xr-flag" x="306" y="162">runs the application</text></g>
+            <g class="xr-mod"><rect x="290" y="250" width="180" height="64" rx="6"/><text x="306" y="277">Flash storage</text><text class="xr-flag" x="306" y="297">keys and configuration</text></g>
+            <g class="xr-mod"><rect x="540" y="70" width="180" height="64" rx="6"/><text x="556" y="97">Update client</text><text class="xr-flag" x="556" y="117">over-the-air updates</text></g>
+            <g class="xr-mod"><rect x="540" y="160" width="180" height="64" rx="6"/><text x="556" y="187">Actuator driver</text><text class="xr-flag" x="556" y="207">physical output</text></g>
+            <g class="xr-mod"><rect x="540" y="250" width="180" height="64" rx="6"/><text x="556" y="277">Sensor inputs</text><text class="xr-flag" x="556" y="297">measurements</text></g>
+          </g>
+
+          <!-- the same device inside the lens: weak points marked -->
+          <g class="xr-threat" clip-path="url(#xrClip)">
+            <rect class="xr-cover" width="760" height="350"/>
+            <g class="xr-zone"><text x="40" y="42">Interfaces</text><text x="290" y="42">Processing</text><text x="540" y="42">Functions</text><path d="M255 28V326M505 28V326"/></g>
+            <g class="xr-traces">
+              <path d="M220 192H262V172H290"/><path d="M220 282H274V192H290"/>
+              <path d="M380 250V205"/>
+              <path d="M540 102H510V140H470"/><path d="M540 282H486V192H470"/>
+            </g>
+            <path class="xr-attack" d="M220 102H250V140H290M470 172H498V192H540"/>
+            <g class="xr-mod is-bad"><rect x="40" y="70" width="180" height="64" rx="6"/><text x="56" y="97">Cellular modem</text><text class="xr-flag" x="56" y="117">no authentication</text></g>
+            <g class="xr-mod is-bad"><rect x="40" y="160" width="180" height="64" rx="6"/><text x="56" y="187">Bluetooth</text><text class="xr-flag" x="56" y="207">open pairing</text></g>
+            <g class="xr-mod is-bad"><rect x="40" y="250" width="180" height="64" rx="6"/><text x="56" y="277">Debug port</text><text class="xr-flag" x="56" y="297">left open</text></g>
+            <g class="xr-mod"><rect x="290" y="115" width="180" height="90" rx="6"/><text x="306" y="142">Main controller</text><text class="xr-flag" x="306" y="162">runs the application</text></g>
+            <g class="xr-mod is-bad"><rect x="290" y="250" width="180" height="64" rx="6"/><text x="306" y="277">Flash storage</text><text class="xr-flag" x="306" y="297">keys in plain text</text></g>
+            <g class="xr-mod is-bad"><rect x="540" y="70" width="180" height="64" rx="6"/><text x="556" y="97">Update client</text><text class="xr-flag" x="556" y="117">unsigned firmware</text></g>
+            <g class="xr-mod is-target"><rect x="540" y="160" width="180" height="64" rx="6"/><text x="556" y="187">Actuator driver</text><text class="xr-flag" x="556" y="207">attacker's target</text></g>
+            <g class="xr-mod"><rect x="540" y="250" width="180" height="64" rx="6"/><text x="556" y="277">Sensor inputs</text><text class="xr-flag" x="556" y="297">measurements</text></g>
+          </g>
+
+          <g class="xr-lens" id="xrRing" transform="translate(130 102)"><circle r="56"/></g>
+        </svg>
+      </div>
+
+      <div class="xr-side" id="xrSide">
+        <p class="xr-count"><b id="xrCount">0</b> of 5 weaknesses found</p>
+        <ol class="xr-list">
+          <li data-x="130" data-y="102"><span class="xr-sev">Critical</span><div><b>Commands accepted without authentication</b><small>Cellular modem</small></div></li>
+          <li data-x="630" data-y="102"><span class="xr-sev">Critical</span><div><b>Firmware signature is not checked</b><small>Update client</small></div></li>
+          <li data-x="130" data-y="282"><span class="xr-sev">High</span><div><b>Debug port left open</b><small>Debug port</small></div></li>
+          <li data-x="380" data-y="282"><span class="xr-sev">High</span><div><b>Keys stored in plain text</b><small>Flash storage</small></div></li>
+          <li data-x="130" data-y="192"><span class="xr-sev">Medium</span><div><b>Pairing without confirmation</b><small>Bluetooth</small></div></li>
+        </ol>
+        <p class="xr-done">All five are on the table. That is where a threat analysis puts them, before an attacker does. <a href="#demo">Book a demo →</a></p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ───────── Platform ───────── -->
+<section class="sec platform alt" id="platform">
+  <div class="wrap">
+    <p class="label rv">Platform</p>
+    <div class="split">
+      <h2 class="h2 rv">From threat model to audit trail.</h2>
+      <p class="lede rv">Four capabilities that follow the same thread: what could go wrong, where the product is weak, whether the defences hold, and how you prove it.</p>
+    </div>
+
+    <div class="caps">
+      <article class="cap rv">
+        <h3>Threat analysis and risk assessment</h3>
+        <p>Map what is worth protecting, how it could be attacked and what that would cost. Every threat scenario gets a feasibility rating, an impact rating and a risk decision you can stand behind.</p>
+        <ul class="cap-list"><li>Assets and damage scenarios</li><li>Attack paths</li><li>Risk treatment decisions</li></ul>
+      </article>
+      <article class="cap rv">
+        <h3>Vulnerability detection</h3>
+        <p>Catch the weaknesses in your software before someone else does. Findings are ranked by severity, so the team fixes what matters first and can show what was fixed.</p>
+        <ul class="cap-list"><li>Severity ranking</li><li>Fix tracking</li><li>Findings linked to threats</li></ul>
+      </article>
+      <article class="cap rv">
+        <h3>Embedded security testing</h3>
+        <p>We test the real device, not only the design. Interfaces, firmware and communication are attacked the way an adversary would, and each result is recorded against the threat it answers.</p>
+        <ul class="cap-list"><li>Hardware interfaces</li><li>Firmware</li><li>Communication</li></ul>
+      </article>
+      <article class="cap rv">
+        <h3>Compliance and evidence</h3>
+        <p>Every requirement mapped to the work that satisfies it. Reports your assessor can read are produced while the team works, not assembled the week before the audit.</p>
+        <ul class="cap-list"><li>Requirement mapping</li><li>Gap view</li><li>Audit-ready reports</li></ul>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ───────── How it works ───────── -->
+<section class="sec how" id="how">
+  <div class="wrap">
+    <p class="label rv">How it works</p>
+    <h2 class="h2 rv">One finding, followed all the way through.</h2>
+
+    <div class="flow" id="flow">
+      <div class="flow-line" aria-hidden="true"><i id="flowBar"></i></div>
+      <ol>
+        <li>
+          <h3>Model</h3>
+          <p>Describe the product: its parts, its interfaces and what it has to protect.</p>
+          <code>Asset · Control commands</code>
+        </li>
+        <li>
+          <h3>Analyse</h3>
+          <p>Identify the threats, rate the risk and find the weaknesses that make an attack possible.</p>
+          <code>TS-014 · Spoofed command · risk 5</code>
+        </li>
+        <li>
+          <h3>Test</h3>
+          <p>Attack the real device and confirm that every control holds.</p>
+          <code>TC-033 · Replay rejected · pass</code>
+        </li>
+        <li>
+          <h3>Prove</h3>
+          <p>Give your assessor a trail that links each requirement to its evidence.</p>
+          <code>EV-207 · Linked to requirement</code>
+        </li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<!-- ───────── Automotive ───────── -->
+<section class="sec auto alt" id="automotive">
+  <div class="wrap">
+    <p class="label rv">Automotive</p>
+    <div class="split">
+      <h2 class="h2 rv">Cybersecurity for the automotive industry.</h2>
+      <p class="lede rv">Vehicles are among the most tightly regulated connected products. We support OEMs and Tier 1 and Tier 2 suppliers working to UN R155 and ISO/SAE 21434.</p>
+    </div>
+
+    <div class="stds">
+      <div class="std rv">
+        <p class="std-n">UN R155</p>
+        <p>The UN regulation that makes a cybersecurity management system a condition of vehicle type approval.</p>
+      </div>
+      <div class="std rv">
+        <p class="std-n">ISO/SAE 21434</p>
+        <p>The engineering standard for cybersecurity across the whole vehicle lifecycle, from concept to decommissioning.</p>
+      </div>
+    </div>
+
+    <div class="stats" id="stats">
+      <div class="stat rv">
+        <p class="stat-n"><span class="roll" data-roll="36">36</span><span>%</span></p>
+        <p>of automotive teams name proving safety compliance their top challenge, two years running</p>
+      </div>
+      <div class="stat rv">
+        <p class="stat-n"><span class="roll" data-roll="9">9</span></p>
+        <p>production models discontinued in Europe in 2024 over UN R155 cybersecurity non-compliance</p>
+      </div>
+      <div class="stat rv">
+        <p class="stat-n"><span class="roll" data-roll="195">195</span><span>M+</span></p>
+        <p>vehicles ran the QNX RTOS exposed by a single memory allocation flaw</p>
+      </div>
+      <div class="stat rv">
+        <p class="stat-n"><span>#</span><span class="roll" data-roll="1">1</span></p>
+        <p>defect class behind embedded vulnerabilities: undefined behavior</p>
+      </div>
+    </div>
+
+    <p class="auto-out rv">The method is not specific to cars. Any connected, embedded product has to answer the same questions.</p>
+  </div>
+</section>
+
+<!-- ───────── Company ───────── -->
+<section class="sec company" id="company">
+  <div class="wrap">
+    <blockquote class="mission rv">Security as a culture,<br><span>not a checkbox.</span></blockquote>
+    <div class="company-grid">
+      <p class="rv">TrinovaQ was built on a shift-left conviction: security belongs at the first design decision, not at the end of the project. When threat analysis, testing and evidence are part of the team's daily work, compliance becomes a habit everyone shares.</p>
+      <dl class="facts rv">
+        <div><dt>Who we are</dt><dd>A cybersecurity company from Tunisia</dd></div>
+        <div><dt>What we do</dt><dd>TARA, vulnerability detection, embedded security testing, compliance tooling</dd></div>
+        <div><dt>Backed by</dt><dd>Startupbootcamp, Canopy by Founders Inc, Open Startup International</dd></div>
+      </dl>
+    </div>
+  </div>
+</section>
+
+<!-- ───────── Demo ───────── -->
+<section class="sec demo" id="demo">
+  <div class="wrap demo-in">
+    <div class="demo-copy">
+      <p class="label rv">Book a demo</p>
+      <h2 class="h2 rv">See it on your own product.</h2>
+      <p class="lede rv">Tell us what you are building and where to reach you. We will set up a demo around your use case.</p>
+      <p class="demo-mail rv">Or write to us: <a href="mailto:contact@trinovaq.io">contact@trinovaq.io</a></p>
+    </div>
+
+    <form class="form rv" id="demoForm" novalidate>
+      <div class="f2">
+        <label>Name<input type="text" name="name" autocomplete="name" required></label>
+        <label>Work email<input type="email" name="email" autocomplete="email" required></label>
+      </div>
+      <div class="f2">
+        <label>Company<input type="text" name="company" autocomplete="organization"></label>
+        <label>Role<input type="text" name="role" autocomplete="organization-title"></label>
+      </div>
+      <label>What are you building?<textarea name="message" rows="4"></textarea></label>
+      <label class="hp-field" aria-hidden="true">Website<input type="text" name="website" tabindex="-1" autocomplete="off"></label>
+      <div class="form-end">
+        <button class="btn" type="submit" id="demoSubmit">Book a demo <span class="arr" aria-hidden="true">→</span></button>
+        <p class="fstatus" id="formStatus" role="status" aria-live="polite"></p>
+      </div>
+    </form>
+  </div>
+</section>
+
+</main>
+
+<!-- ───────── Footer ───────── -->
+<footer class="foot">
+  <div class="wrap foot-in">
+    <div>
+      <a class="brand" href="#top" aria-label="TrinovaQ, back to top">
+        <svg class="brand-logo" viewBox="0 0 796 200" aria-hidden="true"><use href="#tq-logo"/></svg>
+      </a>
+      <p class="foot-tag">Cybersecurity and compliance for connected products.</p>
+    </div>
+    <nav class="foot-links" aria-label="Footer">
+      <a href="#platform">Platform</a>
+      <a href="#how">How it works</a>
+      <a href="#automotive">Automotive</a>
+      <a href="#company">About</a>
+      <a href="#demo">Book a demo</a>
+    </nav>
+    <div class="foot-meta">
+      <a href="mailto:contact@trinovaq.io">contact@trinovaq.io</a>
+      <p>© 2026 TrinovaQ</p>
+    </div>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+</body>
+</html>
