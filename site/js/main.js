@@ -333,38 +333,6 @@
     revealEls.forEach(function (el) { revealIO.observe(el); });
   }
 
-  /* ── Hero panel: the attack path runs through four phases, then repeats ──
-        0 idle · 1 path traced · 2 risk rated · 3 control applied            */
-  (function () {
-    var hp = $("#heroPanel");
-    if (!hp) return;
-    var timers = [];
-    var running = false;
-
-    function phase(n) {
-      hp.classList.toggle("p1", n >= 1);
-      hp.classList.toggle("p2", n >= 2);
-      hp.classList.toggle("p3", n >= 3);
-    }
-    function later(ms, fn) { timers.push(setTimeout(fn, ms)); }
-    function stop() { timers.forEach(clearTimeout); timers = []; running = false; }
-    function cycle() {
-      phase(0);
-      later(1100, function () { phase(1); });
-      later(3700, function () { phase(2); });
-      later(6500, function () { phase(3); });
-      later(11500, cycle);
-    }
-
-    if (reduce || !hasIO) { phase(3); return; }
-
-    new IntersectionObserver(function (entries) {
-      var visible = entries[0].isIntersecting;
-      if (visible && !running) { running = true; cycle(); }
-      else if (!visible && running) { stop(); }
-    }, { threshold: 0.25 }).observe(hp);
-  })();
-
   /* ── Hero background: circuit traces that light up near the cursor and carry signals ── */
   (function () {
     var cv = $("#heroGrid");
@@ -685,90 +653,103 @@
     rolls.forEach(function (el) { io.observe(el); });
   })();
 
-  /* ── Attacker's view: a lens over the device schematic that reveals its weaknesses ──
-        The lens follows the pointer; left alone, it tours the board by itself.          */
+  /* ── Attacker's view: a scan sweeps across the device and marks its weaknesses,
+        then draws the attack path they open. Runs when the panel comes into view. ── */
   (function () {
     var stage = $("#xrStage");
     if (!stage) return;
-    var svg = $("svg", stage);
-    var clip = $("#xrClipC");
-    var ring = $("#xrRing");
+    var beam = $("#xrBeam");
+    var pathEl = $("#xrPath");
     var side = $("#xrSide");
     var countEl = $("#xrCount");
-    var spots = $$(".xr-list li").map(function (li) {
-      return { x: Number(li.getAttribute("data-x")), y: Number(li.getAttribute("data-y")), li: li, found: false };
-    });
-    var VW = 760, VH = 350;                               /* the SVG's own coordinate system */
-    var tour = [[130, 102], [380, 160], [630, 102], [630, 192], [380, 282], [130, 282], [130, 192]];
-    var pos = { x: 130, y: 102 }, target = { x: 130, y: 102 };
-    var manual = false, resumeT = 0, inView = false, raf = 0, found = 0, t0 = 0;
+    var stateEl = $("#xrState");
+    var again = $("#xrAgain");
+    var rows = {};
+    $$(".xr-list li").forEach(function (li) { rows[li.getAttribute("data-k")] = li; });
+    var target = $(".xr-mod[data-target]", stage);
+    var finds = $$(".xr-mod[data-k]", stage).map(function (g) {
+      var r = $("rect", g);
+      var flag = $(".xr-flag", g);
+      return {
+        g: g, k: g.getAttribute("data-k"), flag: flag, plain: flag.textContent,
+        at: Number(r.getAttribute("x")) + Number(r.getAttribute("width")) * 0.45   /* where the scan marks it */
+      };
+    }).sort(function (a, b) { return a.at - b.at; });
+    var W = 760, DURATION = 3400, raf = 0, timers = [], found = 0, started = false;
 
-    function place() {
-      clip.setAttribute("cx", pos.x.toFixed(1));
-      clip.setAttribute("cy", pos.y.toFixed(1));
-      ring.setAttribute("transform", "translate(" + pos.x.toFixed(1) + " " + pos.y.toFixed(1) + ")");
-    }
-    function reveal(s) {
-      s.found = true;
-      s.li.classList.add("is-found");
-      /* a weak point stays marked on the diagram once the lens has found it */
-      $$(".xr-base .xr-mod rect", svg).forEach(function (r) {
-        var cx = Number(r.getAttribute("x")) + Number(r.getAttribute("width")) / 2;
-        var cy = Number(r.getAttribute("y")) + Number(r.getAttribute("height")) / 2;
-        if (Math.abs(cx - s.x) < 6 && Math.abs(cy - s.y) < 6) r.parentNode.classList.add("is-known");
-      });
+    function mark(f) {
+      f.g.classList.add("is-found");
+      f.flag.textContent = f.g.getAttribute("data-flag");
+      rows[f.k].classList.add("is-found");
       countEl.textContent = String(++found);
-      if (found === spots.length) side.classList.add("is-done");
     }
-    function check() {
-      for (var i = 0; i < spots.length; i++) {
-        var s = spots[i];
-        if (s.found) continue;
-        var dx = s.x - pos.x, dy = s.y - pos.y;
-        if (dx * dx + dy * dy < 44 * 44) reveal(s);
-      }
+    function finish() {
+      stage.classList.remove("is-scanning");
+      pathEl.classList.add("go");
+      timers.push(setTimeout(function () {
+        if (target) { target.classList.add("is-target"); $(".xr-flag", target).textContent = "attacker's target"; }
+        stage.classList.add("is-done");
+        side.classList.add("is-done");
+        stateEl.textContent = "Scan complete · 5 findings";
+        again.hidden = false;
+      }, reduce ? 0 : 900));
     }
-
-    if (reduce || !hasIO) { place(); spots.forEach(reveal); return; }
-
-    function tick(now) {
-      raf = 0;
-      if (!inView) return;
-      if (!manual) {
+    function reset() {
+      cancelAnimationFrame(raf); raf = 0;
+      timers.forEach(clearTimeout); timers = [];
+      found = 0; countEl.textContent = "0";
+      finds.forEach(function (f) { f.g.classList.remove("is-found"); f.flag.textContent = f.plain; rows[f.k].classList.remove("is-found"); });
+      if (target) { target.classList.remove("is-target"); $(".xr-flag", target).textContent = "physical output"; }
+      pathEl.classList.remove("go");
+      stage.classList.remove("is-done", "is-scanning");
+      side.classList.remove("is-done");
+      beam.setAttribute("transform", "translate(-20 0)");
+      again.hidden = true;
+    }
+    function scan() {
+      reset();
+      if (reduce) { finds.forEach(mark); finish(); return; }
+      void pathEl.getBoundingClientRect();
+      stage.classList.add("is-scanning");
+      stateEl.textContent = "Scanning…";
+      var t0 = 0, next = 0;
+      function step(now) {
         if (!t0) t0 = now;
-        var stop = tour[Math.floor((now - t0) / 2400) % tour.length];
-        target.x = stop[0]; target.y = stop[1];
+        var t = clamp((now - t0) / DURATION, 0, 1);
+        var e = t < .5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2;      /* ease in and out */
+        var x = -20 + (W + 40) * e;
+        beam.setAttribute("transform", "translate(" + x.toFixed(1) + " 0)");
+        while (next < finds.length && x >= finds[next].at) mark(finds[next++]);
+        if (t < 1) raf = requestAnimationFrame(step);
+        else { raf = 0; finish(); }
       }
-      var ease = manual ? 0.22 : 0.045;
-      pos.x += (target.x - pos.x) * ease;
-      pos.y += (target.y - pos.y) * ease;
-      place();
-      check();
-      raf = requestAnimationFrame(tick);
+      raf = requestAnimationFrame(step);
     }
-    function wake() { if (!raf && inView) raf = requestAnimationFrame(tick); }
 
-    stage.addEventListener("pointermove", function (e) {
-      var box = svg.getBoundingClientRect();
-      if (!box.width) return;
-      manual = true;
-      clearTimeout(resumeT);
-      target.x = clamp((e.clientX - box.left) / box.width * VW, 0, VW);
-      target.y = clamp((e.clientY - box.top) / box.height * VH, 0, VH);
-      wake();
-    }, { passive: true });
-
-    function handBack() {
-      clearTimeout(resumeT);
-      resumeT = setTimeout(function () { manual = false; t0 = 0; }, 1800);
+    /* pointing at a finding, on the diagram or in the list, highlights its pair */
+    function focus(k, on) {
+      var f = finds.filter(function (x) { return x.k === k; })[0];
+      if (!f || !f.g.classList.contains("is-found")) return;
+      f.g.classList.toggle("is-hl", on);
+      rows[k].classList.toggle("is-hl", on);
+      stage.classList.toggle("is-focus", on);
     }
-    stage.addEventListener("pointerleave", handBack);
-    stage.addEventListener("pointercancel", handBack);
+    finds.forEach(function (f) {
+      f.g.addEventListener("mouseenter", function () { focus(f.k, true); });
+      f.g.addEventListener("mouseleave", function () { focus(f.k, false); });
+      rows[f.k].addEventListener("mouseenter", function () { focus(f.k, true); });
+      rows[f.k].addEventListener("mouseleave", function () { focus(f.k, false); });
+    });
+    again.addEventListener("click", scan);
 
-    new IntersectionObserver(function (entries) {
-      inView = entries[0].isIntersecting;
-      if (inView) wake();
-    }, { threshold: 0.2 }).observe(stage);
+    if (!hasIO) { scan(); return; }
+    var io = new IntersectionObserver(function (entries) {
+      if (!entries[0].isIntersecting || started) return;
+      started = true;
+      io.disconnect();
+      timers.push(setTimeout(scan, 300));
+    }, { threshold: 0.45 });
+    io.observe(stage);
   })();
 
   /* ── Demo form → Google Sheet (same Apps Script web app as the previous site) ── */

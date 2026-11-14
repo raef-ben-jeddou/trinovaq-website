@@ -209,77 +209,6 @@
     </div>
 
     <!-- Attack path illustration -->
-    <figure class="hp hero-fade" id="heroPanel" style="--d:4">
-      <div class="hp-bar">
-        <span class="hp-file">attack path <i>/</i> TS-014</span>
-        <span class="hp-status" aria-hidden="true">
-          <span class="st st-0">Mapping attack surface</span>
-          <span class="st st-1">Tracing attack path</span>
-          <span class="st st-2">Risk 5 · action needed</span>
-          <span class="st st-3">Treated · evidence linked</span>
-        </span>
-      </div>
-
-      <div class="hp-body">
-        <div class="hp-scroll">
-        <svg class="hp-graph" viewBox="0 0 640 300" role="img" aria-label="Illustration: an attack path from a cellular entry point through a gateway and controller to the control commands of an embedded system, then closed by a security control.">
-
-          <g class="col-t">
-            <text x="16" y="22">ENTRY POINTS</text>
-            <text x="180" y="22">NETWORK</text>
-            <text x="360" y="22">CONTROL</text>
-            <text x="524" y="22">ASSET</text>
-          </g>
-
-          <g class="edges">
-            <path d="M116 62 C148 62,148 96,180 96"/>
-            <path d="M116 130 C148 130,148 96,180 96"/>
-            <path d="M116 130 C148 130,148 232,180 232"/>
-            <path d="M116 198 C148 198,148 232,180 232"/>
-            <path d="M116 266 C148 266,148 232,180 232"/>
-            <path d="M296 96 C328 96,328 130,360 130"/>
-            <path d="M296 232 L360 232"/>
-            <path d="M296 96 C328 96,328 232,360 232"/>
-            <path d="M460 130 L524 130"/>
-            <path d="M460 232 L524 232"/>
-          </g>
-
-          <path class="attack" pathLength="1" d="M116 130 C148 130,148 96,180 96 L296 96 C328 96,328 130,360 130 L460 130 L524 130"/>
-
-          <g class="nodes">
-            <g class="node"><rect x="16" y="44" width="100" height="36" rx="7"/><text x="66" y="66">Bluetooth</text></g>
-            <g class="node hot"><rect x="16" y="112" width="100" height="36" rx="7"/><text x="66" y="134">Cellular</text></g>
-            <g class="node"><rect x="16" y="180" width="100" height="36" rx="7"/><text x="66" y="202">USB</text></g>
-            <g class="node"><rect x="16" y="248" width="100" height="36" rx="7"/><text x="66" y="270">Debug port</text></g>
-
-            <g class="node hot"><rect x="180" y="78" width="116" height="36" rx="7"/><text x="238" y="100">Gateway</text></g>
-            <g class="node"><rect x="180" y="214" width="116" height="36" rx="7"/><text x="238" y="236">App processor</text></g>
-
-            <g class="node hot"><rect x="360" y="112" width="100" height="36" rx="7"/><text x="410" y="134">Controller</text></g>
-            <g class="node"><rect x="360" y="214" width="100" height="36" rx="7"/><text x="410" y="236">Update client</text></g>
-
-            <g class="node hot asset"><rect x="524" y="112" width="100" height="36" rx="7"/><text x="574" y="134">Commands</text></g>
-            <g class="node"><rect x="524" y="214" width="100" height="36" rx="7"/><text x="574" y="236">Firmware</text></g>
-          </g>
-
-          <g class="control">
-            <path d="M328 102 337.5 107.5v11L328 124l-9.5-5.5v-11Z"/>
-            <path class="tick" d="M323.6 113l3 3 5.4-6"/>
-            <text x="420" y="174">+ message authentication</text>
-          </g>
-        </svg>
-        </div>
-
-        <dl class="readout">
-          <div class="ro ro-1"><dt>Threat scenario</dt><dd>Spoofed command over the cellular link</dd></div>
-          <div class="ro ro-2"><dt>Attack feasibility</dt><dd><span class="swap"><span class="a">High</span><span class="b">Low</span></span></dd></div>
-          <div class="ro ro-2"><dt>Impact</dt><dd>Severe</dd></div>
-          <div class="ro ro-2"><dt>Risk value</dt><dd><span class="swap risk"><span class="a">5</span><span class="b">2</span></span></dd></div>
-          <div class="ro ro-3"><dt>Evidence</dt><dd>TC-033 passed, linked</dd></div>
-        </dl>
-      </div>
-      <figcaption>Illustration of an attack path analysis.</figcaption>
-    </figure>
   </div>
 </section>
 
@@ -315,69 +244,59 @@
     <p class="label rv">Attacker's view</p>
     <div class="split">
       <h2 class="h2 rv">See your product the way an attacker does.</h2>
-      <p class="lede rv">Move the lens across the device. Everything it uncovers is a weakness that a threat analysis is meant to find before release.</p>
+      <p class="lede rv">A scan across one embedded device. Every weakness it marks is one an attacker would look for, and one a threat analysis should catch first.</p>
     </div>
 
     <div class="xr rv">
       <div class="xr-stage" id="xrStage">
-        <div class="panel-bar"><span>Device model</span><span>Move the lens to inspect</span></div>
-        <svg class="xr-svg" viewBox="0 0 760 350" role="img" aria-label="Illustration: a block diagram of an embedded device in three groups, interfaces, processing and functions. A small lens moves across it and marks five weak points.">
+        <div class="panel-bar"><span>Security scan</span><span class="xr-status"><span id="xrState">Ready</span><button type="button" class="xr-again" id="xrAgain" hidden>Run again</button></span></div>
+        <svg class="xr-svg" viewBox="0 0 760 350" role="img" aria-label="Illustration: a block diagram of an embedded device in three groups, interfaces, processing and functions. A scan sweeps across it and marks five weaknesses, then the attack path they open.">
           <defs>
-            <clipPath id="xrClip"><circle id="xrClipC" cx="130" cy="102" r="56"/></clipPath>
+            <linearGradient id="xrBeamG" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="#1DB9E1"/><stop offset=".5" stop-color="#6E70BB"/><stop offset="1" stop-color="#8C46B8"/>
+            </linearGradient>
+            <linearGradient id="xrTrailG" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0" stop-color="#1DB9E1" stop-opacity="0"/><stop offset="1" stop-color="#1DB9E1" stop-opacity=".14"/>
+            </linearGradient>
+            <linearGradient id="xrPathG" gradientUnits="userSpaceOnUse" x1="220" y1="0" x2="540" y2="0">
+              <stop offset="0" stop-color="#1DB9E1"/><stop offset=".55" stop-color="#6E70BB"/><stop offset="1" stop-color="#A77BD6"/>
+            </linearGradient>
           </defs>
 
-          <!-- the device as the team draws it -->
-          <g class="xr-base">
-            <g class="xr-zone"><text x="40" y="42">Interfaces</text><text x="290" y="42">Processing</text><text x="540" y="42">Functions</text><path d="M255 28V326M505 28V326"/></g>
-            <g class="xr-traces">
-              <path d="M220 102H250V140H290"/><path d="M220 192H262V172H290"/><path d="M220 282H274V192H290"/>
-              <path d="M380 250V205"/>
-              <path d="M540 102H510V140H470"/><path d="M540 192H498V172H470"/><path d="M540 282H486V192H470"/>
-            </g>
-            <g class="xr-mod"><rect x="40" y="70" width="180" height="64" rx="6"/><text x="56" y="97">Cellular modem</text><text class="xr-flag" x="56" y="117">remote link</text></g>
-            <g class="xr-mod"><rect x="40" y="160" width="180" height="64" rx="6"/><text x="56" y="187">Bluetooth</text><text class="xr-flag" x="56" y="207">local link</text></g>
-            <g class="xr-mod"><rect x="40" y="250" width="180" height="64" rx="6"/><text x="56" y="277">Debug port</text><text class="xr-flag" x="56" y="297">service access</text></g>
-            <g class="xr-mod"><rect x="290" y="115" width="180" height="90" rx="6"/><text x="306" y="142">Main controller</text><text class="xr-flag" x="306" y="162">runs the application</text></g>
-            <g class="xr-mod"><rect x="290" y="250" width="180" height="64" rx="6"/><text x="306" y="277">Flash storage</text><text class="xr-flag" x="306" y="297">keys and configuration</text></g>
-            <g class="xr-mod"><rect x="540" y="70" width="180" height="64" rx="6"/><text x="556" y="97">Update client</text><text class="xr-flag" x="556" y="117">over-the-air updates</text></g>
-            <g class="xr-mod"><rect x="540" y="160" width="180" height="64" rx="6"/><text x="556" y="187">Actuator driver</text><text class="xr-flag" x="556" y="207">physical output</text></g>
-            <g class="xr-mod"><rect x="540" y="250" width="180" height="64" rx="6"/><text x="556" y="277">Sensor inputs</text><text class="xr-flag" x="556" y="297">measurements</text></g>
+          <g class="xr-zone"><text x="40" y="42">Interfaces</text><text x="290" y="42">Processing</text><text x="540" y="42">Functions</text><path d="M255 28V326M505 28V326"/></g>
+          <g class="xr-traces">
+            <path d="M220 102H250V140H290"/><path d="M220 192H262V172H290"/><path d="M220 282H274V192H290"/>
+            <path d="M380 250V205"/>
+            <path d="M540 102H510V140H470"/><path d="M540 192H498V172H470"/><path d="M540 282H486V192H470"/>
           </g>
+          <path class="xr-path" id="xrPath" pathLength="1" d="M220 102H250V140H290M470 172H498V192H540"/>
 
-          <!-- the same device inside the lens: weak points marked -->
-          <g class="xr-threat" clip-path="url(#xrClip)">
-            <rect class="xr-cover" width="760" height="350"/>
-            <g class="xr-zone"><text x="40" y="42">Interfaces</text><text x="290" y="42">Processing</text><text x="540" y="42">Functions</text><path d="M255 28V326M505 28V326"/></g>
-            <g class="xr-traces">
-              <path d="M220 192H262V172H290"/><path d="M220 282H274V192H290"/>
-              <path d="M380 250V205"/>
-              <path d="M540 102H510V140H470"/><path d="M540 282H486V192H470"/>
-            </g>
-            <path class="xr-attack" d="M220 102H250V140H290M470 172H498V192H540"/>
-            <g class="xr-mod is-bad"><rect x="40" y="70" width="180" height="64" rx="6"/><text x="56" y="97">Cellular modem</text><text class="xr-flag" x="56" y="117">no authentication</text></g>
-            <g class="xr-mod is-bad"><rect x="40" y="160" width="180" height="64" rx="6"/><text x="56" y="187">Bluetooth</text><text class="xr-flag" x="56" y="207">open pairing</text></g>
-            <g class="xr-mod is-bad"><rect x="40" y="250" width="180" height="64" rx="6"/><text x="56" y="277">Debug port</text><text class="xr-flag" x="56" y="297">left open</text></g>
-            <g class="xr-mod"><rect x="290" y="115" width="180" height="90" rx="6"/><text x="306" y="142">Main controller</text><text class="xr-flag" x="306" y="162">runs the application</text></g>
-            <g class="xr-mod is-bad"><rect x="290" y="250" width="180" height="64" rx="6"/><text x="306" y="277">Flash storage</text><text class="xr-flag" x="306" y="297">keys in plain text</text></g>
-            <g class="xr-mod is-bad"><rect x="540" y="70" width="180" height="64" rx="6"/><text x="556" y="97">Update client</text><text class="xr-flag" x="556" y="117">unsigned firmware</text></g>
-            <g class="xr-mod is-target"><rect x="540" y="160" width="180" height="64" rx="6"/><text x="556" y="187">Actuator driver</text><text class="xr-flag" x="556" y="207">attacker's target</text></g>
-            <g class="xr-mod"><rect x="540" y="250" width="180" height="64" rx="6"/><text x="556" y="277">Sensor inputs</text><text class="xr-flag" x="556" y="297">measurements</text></g>
+          <g class="xr-mod" data-k="modem" data-flag="no authentication"><rect x="40" y="70" width="180" height="64" rx="6"/><text x="56" y="97">Cellular modem</text><text class="xr-flag" x="56" y="117">remote link</text><g class="xr-tag" transform="translate(140 61)"><rect width="70" height="17" rx="3"/><text x="35" y="12">CRITICAL</text></g></g>
+          <g class="xr-mod" data-k="bt" data-flag="open pairing"><rect x="40" y="160" width="180" height="64" rx="6"/><text x="56" y="187">Bluetooth</text><text class="xr-flag" x="56" y="207">local link</text><g class="xr-tag" transform="translate(154 151)"><rect width="56" height="17" rx="3"/><text x="28" y="12">MEDIUM</text></g></g>
+          <g class="xr-mod" data-k="debug" data-flag="left open"><rect x="40" y="250" width="180" height="64" rx="6"/><text x="56" y="277">Debug port</text><text class="xr-flag" x="56" y="297">service access</text><g class="xr-tag" transform="translate(168 241)"><rect width="42" height="17" rx="3"/><text x="21" y="12">HIGH</text></g></g>
+          <g class="xr-mod"><rect x="290" y="115" width="180" height="90" rx="6"/><text x="306" y="142">Main controller</text><text class="xr-flag" x="306" y="162">runs the application</text></g>
+          <g class="xr-mod" data-k="flash" data-flag="keys in plain text"><rect x="290" y="250" width="180" height="64" rx="6"/><text x="306" y="277">Flash storage</text><text class="xr-flag" x="306" y="297">keys and configuration</text><g class="xr-tag" transform="translate(418 241)"><rect width="42" height="17" rx="3"/><text x="21" y="12">HIGH</text></g></g>
+          <g class="xr-mod" data-k="update" data-flag="unsigned firmware"><rect x="540" y="70" width="180" height="64" rx="6"/><text x="556" y="97">Update client</text><text class="xr-flag" x="556" y="117">over-the-air updates</text><g class="xr-tag" transform="translate(640 61)"><rect width="70" height="17" rx="3"/><text x="35" y="12">CRITICAL</text></g></g>
+          <g class="xr-mod" data-target="1"><rect x="540" y="160" width="180" height="64" rx="6"/><text x="556" y="187">Actuator driver</text><text class="xr-flag" x="556" y="207">physical output</text></g>
+          <g class="xr-mod"><rect x="540" y="250" width="180" height="64" rx="6"/><text x="556" y="277">Sensor inputs</text><text class="xr-flag" x="556" y="297">measurements</text></g>
+
+          <g class="xr-beam" id="xrBeam" transform="translate(-20 0)">
+            <rect class="xr-trail" x="-140" y="0" width="140" height="350"/>
+            <rect class="xr-line" x="-1" y="0" width="2" height="350"/>
           </g>
-
-          <g class="xr-lens" id="xrRing" transform="translate(130 102)"><circle r="56"/></g>
         </svg>
       </div>
 
       <div class="xr-side" id="xrSide">
         <p class="xr-count"><b id="xrCount">0</b> of 5 weaknesses found</p>
         <ol class="xr-list">
-          <li data-x="130" data-y="102"><span class="xr-sev">Critical</span><div><b>Commands accepted without authentication</b><small>Cellular modem</small></div></li>
-          <li data-x="630" data-y="102"><span class="xr-sev">Critical</span><div><b>Firmware signature is not checked</b><small>Update client</small></div></li>
-          <li data-x="130" data-y="282"><span class="xr-sev">High</span><div><b>Debug port left open</b><small>Debug port</small></div></li>
-          <li data-x="380" data-y="282"><span class="xr-sev">High</span><div><b>Keys stored in plain text</b><small>Flash storage</small></div></li>
-          <li data-x="130" data-y="192"><span class="xr-sev">Medium</span><div><b>Pairing without confirmation</b><small>Bluetooth</small></div></li>
+          <li data-k="modem"><span class="xr-sev">Critical</span><div><b>Commands accepted without authentication</b><small>Cellular modem</small></div></li>
+          <li data-k="update"><span class="xr-sev">Critical</span><div><b>Firmware signature is not checked</b><small>Update client</small></div></li>
+          <li data-k="debug"><span class="xr-sev">High</span><div><b>Debug port left open</b><small>Debug port</small></div></li>
+          <li data-k="flash"><span class="xr-sev">High</span><div><b>Keys stored in plain text</b><small>Flash storage</small></div></li>
+          <li data-k="bt"><span class="xr-sev">Medium</span><div><b>Pairing without confirmation</b><small>Bluetooth</small></div></li>
         </ol>
-        <p class="xr-done">All five are on the table. That is where a threat analysis puts them, before an attacker does. <a href="#demo">Book a demo →</a></p>
+        <p class="xr-done">Together they open a path from the cellular link to the actuator. A threat analysis finds that path before release, not after. <a href="#demo">Book a demo →</a></p>
       </div>
     </div>
 
