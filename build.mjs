@@ -2,6 +2,7 @@
 // Zero dependencies. Run with: node build.mjs
 import { readFileSync, writeFileSync, rmSync, mkdirSync, cpSync, existsSync } from "node:fs";
 import { dirname, join } from "node:path";
+import { createHash } from "node:crypto";
 import { fileURLToPath } from "node:url";
 
 const ROOT = dirname(fileURLToPath(import.meta.url));
@@ -24,6 +25,20 @@ cpSync(SITE, DIST, { recursive: true });
 // 3. Fill in build tokens
 const js = join(DIST, "js", "main.js");
 writeFileSync(js, readFileSync(js, "utf8").split("__FORM_ENDPOINT__").join(cfg.formEndpoint));
+
+// 3b. Versioned links: the page asks for css/js by content hash, so a browser never pairs
+//     a new page with a stylesheet or script it cached from an older release
+{
+  const page = join(DIST, "index.html");
+  let html = readFileSync(page, "utf8");
+  for (const f of ["css/style.css", "js/main.js"]) {
+    const v = createHash("sha256").update(readFileSync(join(DIST, f))).digest("hex").slice(0, 10);
+    const before = html;
+    html = html.split('"' + f + '"').join('"' + f + "?v=" + v + '"');
+    if (html === before) { console.error("Build failed: index.html does not link " + f); process.exit(1); }
+  }
+  writeFileSync(page, html);
+}
 
 // 4. Guard: the page and its files must all be there, with no tokens left
 for (const f of ["index.html", "css/style.css", "js/main.js", "assets/logo-mark.svg", "Logo.jpg"]) {
