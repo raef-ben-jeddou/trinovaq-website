@@ -4,7 +4,7 @@
    ───────────────────────────────────────────── */
 :root{
   --bg:#0F1838;
-  --bg-2:#141F47;
+  --bg-2:#111B3E;
   --panel-a:#1A2752;
   --panel-b:#131D43;
   --line:rgba(255,255,255,.08);
@@ -286,9 +286,9 @@ button,input,textarea{font:inherit;color:inherit}
 .flow li.is-lit code{border-color:rgba(29,185,225,.45);color:var(--ink)}
 
 /* ───────── Automotive ───────── */
-.stds{display:grid;grid-template-columns:1fr 1fr;margin-top:clamp(48px,6vw,84px);border-top:1px solid var(--line-2)}
-.std{padding:34px 40px 34px 0}
-.std+.std{padding-left:40px;border-left:1px solid var(--line)}
+.stds{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));margin-top:clamp(48px,6vw,84px);border-top:1px solid var(--line-2)}
+.std{padding:34px 32px 34px 0}
+.std+.std{padding-left:32px;border-left:1px solid var(--line)}
 .std-n{font-family:var(--mono);font-size:clamp(20px,2vw,25px);font-weight:500;margin-bottom:10px}
 .std p:last-child{color:var(--ink-2);max-width:42ch}
 
