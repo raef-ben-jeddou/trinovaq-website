@@ -218,6 +218,13 @@ button,input,textarea{font:inherit;color:inherit}
 .backed-t{font-family:var(--mono);font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);margin-bottom:10px}
 .backed li{font-size:15px;font-weight:500;color:var(--ink-2);line-height:1.75}
 
+/* ───────── Partners: a quiet strip at the end of the page, above the footer ───────── */
+.partners{border-top:1px solid var(--line);padding:28px 0}
+.partners-in{display:flex;align-items:center;gap:28px;flex-wrap:wrap}
+.partners-t{font-family:var(--mono);font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3)}
+.partners-list{display:flex;flex-wrap:wrap;gap:12px 32px}
+.partners-list li{font-size:18px;font-weight:600;letter-spacing:-.01em;color:var(--ink-2)}
+
 /* load-in */
 .js .hero-h .ln>span{transform:translateY(108%);transition:transform 1.05s var(--ease)}
 .js .hero-h .ln:nth-child(2)>span{transition-delay:.1s}
